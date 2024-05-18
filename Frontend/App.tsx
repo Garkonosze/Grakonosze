@@ -4,6 +4,7 @@ import XorPlaneView from "./src/screens/XorPlaneView";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainScreen from "./src/screens/MainScreen";
+import QRScanner from "./src/screens/QRScanner";
 import QrScanScreen from "./src/screens/QrScanScreen";
 import GeoGuesserIntroScreen from "./src/screens/GeoGuesserIntroScreen";
 
@@ -30,6 +31,7 @@ function App() {
           name="GeoGuesserIntroScreen"
           component={GeoGuesserIntroScreen}
         />
+        <Stack.Screen name="QRScanner" component={QRScanner} />
       </Stack.Navigator>
     </NavigationContainer>
   );
