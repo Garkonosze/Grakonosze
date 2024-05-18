@@ -40,6 +40,13 @@ Nasza gra jest skierowana do uczniów szkół średnich, szczególnie tych, któ
 3. **Dostęp do mini gier**: Uczestnicy powinni móc wchodzić do mini gier za pomocą kodów QR, które będą umieszczone w różnych punktach kontrolnych.
 4. **System nagród i progresji**: Gra musi zawierać system nagród i progresji, który umożliwi realizację różnych typów nagród za ukończenie zadań.
 
+### Wymagania niefunkcjonalne
+
+1. Instalacja aplikacji na urządzenia mobilne z Apple/Play store
+2. Udostępnienie dostępu do kamery na urządzenia mobilne
+3. Uczestnictwo w dniach otwartych AGH
+4. Możliwość skanowania kodów QR na urządzeniu mobilnym
+
 ### Stos technologiczny
 
 - **Frontend**: [React Native](https://reactnative.dev/) - do stworzenia aplikacji mobilnej, która będzie interfejsem dla graczy.
@@ -91,6 +98,7 @@ Makiety UI zaimplementowane zostały w **Figmie: [link](https://www.figma.com/pr
 - Wprowadzanie wiecej mini gier
 - Rozszerzenie funkcjonalności na "not location based", chcemy uzyskać wiekszą skalowalność
 - Dodanie logowania i autoryzacji użytkowników
+- Dodanie wersji przeglądarkowej
 
 ## Zespół
 
