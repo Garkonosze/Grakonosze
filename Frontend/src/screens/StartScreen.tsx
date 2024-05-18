@@ -1,5 +1,7 @@
 import { PrimaryButton, Title } from "components/atoms";
-import Navbar from "components/molecules/Navbar";
+import LinkButton from "components/atoms/LinkButton";
+import TextInputPersonalized from "components/atoms/TextInputPersonalized";
+import primaryColors from "properties/styles/colors";
 import { paddingSize } from "properties/styles/vars";
 import React from "react";
 import { View, StyleSheet, Image, SafeAreaView } from "react-native";
@@ -25,32 +27,43 @@ export const mainStyle = StyleSheet.create({
   },
 });
 
-const MainScreen = ({ navigation }) => {
-  
-  const navigateToQrScanScreen = () => {
-    navigation.navigate("QrScanScreen");
+const StartScreen = ({ navigation }) => {
+
+  const navigateMainScreen = () => {
+    navigation.navigate("MainScreen");
+  };
+
+  const navigateToRegisterScreen = () => {
+    navigation.navigate("RegisterScreen");
   };
 
   return (
     <View style={[{ flex: 1 }]}>
       <SafeAreaView style={mainStyle.container}>
-        <Navbar id={"124623"} />
         <Image
           style={mainStyle.logo}
           source={require("../../assets/logo_podstawowe.png")}
         />
         <Title title="Grakonosze" />
         <View style={mainStyle.buttonContainer}>
+            <TextInputPersonalized 
+            placeholder={"Wpisz swoje id"}
+            maxLength={6}/>
           <PrimaryButton
-            title={"Skanuj kod QR"}
-            handleOnClick={navigateToQrScanScreen}
+            title={"Kontynuuj"}
+            handleOnClick={navigateMainScreen}
           ></PrimaryButton>
-          <PrimaryButton title={"Kolekcja"}></PrimaryButton>
-          <PrimaryButton title={"Ranking"}></PrimaryButton>
+          <LinkButton
+          title="Dołącz do gry!"
+          color={primaryColors.lightBlue}
+          helperText="Nie masz konta?"
+          fontWeight="bold"
+          handleOnClick={navigateToRegisterScreen}
+        />
         </View>
       </SafeAreaView>
     </View>
   );
 };
 
-export default MainScreen;
+export default StartScreen;
