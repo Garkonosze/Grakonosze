@@ -26,6 +26,7 @@ const QrScanScreen = ({ navigation }) => {
 
   const navigateToGeoguesser = () => {
     navigation.navigate("GeoGuesserIntroScreen");
+  };
 
   const navigateToQRScanner = () => {
     navigation.navigate("QRScanner");
