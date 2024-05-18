@@ -47,7 +47,7 @@ const NetworkView: React.FC<Props> = ({ navigation }) => {
         style={styles.slider}
         minimumValue={-1}
         maximumValue={1}
-        step={0.01}
+        step={0.0100000001}
         value={weight1}
         onValueChange={setWeight1}
       />
@@ -56,7 +56,7 @@ const NetworkView: React.FC<Props> = ({ navigation }) => {
         style={styles.slider}
         minimumValue={-1}
         maximumValue={1}
-        step={0.01}
+        step={0.0100000001}
         value={weight2}
         onValueChange={setWeight2}
       />
