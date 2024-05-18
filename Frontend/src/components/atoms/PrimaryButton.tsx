@@ -5,14 +5,19 @@ import { ButtonProps } from "properties/types/ButtonProps";
 import { buttonStyle } from "properties/styles/buttonStyle";
 
 const PrimaryButton: React.FC<ButtonProps> = (props: ButtonProps) => {
-  const { handleOnClick, title } = props;
+  const { handleOnClick, title, inactive } = props;
 
   return (
     <Pressable
+      disabled={inactive ? true : false}
       onPress={handleOnClick}
       style={[
         buttonStyle.buttonContainer,
-        { backgroundColor: primaryColors.lightBlue },
+        {
+          backgroundColor: inactive
+            ? primaryColors.lightGrey
+            : primaryColors.lightBlue,
+        },
       ]}
     >
       <Text style={[buttonStyle.buttonText]}>{title}</Text>

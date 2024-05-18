@@ -7,6 +7,7 @@ import MainScreen from "./src/screens/MainScreen";
 import QRScanner from "./src/screens/QRScanner";
 import QrScanScreen from "./src/screens/QrScanScreen";
 import GeoGuesserIntroScreen from "./src/screens/GeoGuesserIntroScreen";
+import GeoGuesser from "./src/screens/GeoGuesser";
 
 type RootStackParamList = {
   Home: undefined;
@@ -31,6 +32,7 @@ function App() {
           name="GeoGuesserIntroScreen"
           component={GeoGuesserIntroScreen}
         />
+        <Stack.Screen name="GeoGuesser" component={GeoGuesser} />
         <Stack.Screen name="QRScanner" component={QRScanner} />
       </Stack.Navigator>
     </NavigationContainer>

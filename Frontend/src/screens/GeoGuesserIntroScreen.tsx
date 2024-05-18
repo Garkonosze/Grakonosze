@@ -1,37 +1,62 @@
 import { PrimaryButton } from "components/atoms";
+import Navbar from "components/molecules/Navbar";
 import primaryColors from "properties/styles/colors";
-import { fontSize, paddingSize } from "properties/styles/vars";
+import {
+  borderRadiusSize,
+  fontSize,
+  paddingSize,
+} from "properties/styles/vars";
 import React from "react";
-import { StyleSheet, Image, Text, Button, View } from "react-native";
+import { StyleSheet, Image, Text, View, SafeAreaView } from "react-native";
 
-export const geoGuesserStyle = StyleSheet.create({
-  banner: {
-    width: 100,
-    height: 100,
-    resizeMode: "contain",
-    alignSelf: "center",
-    position: "absolute",
-    top: 0,
-    right: 0,
+export const geoguesserStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: paddingSize.medium,
+    paddingVertical: paddingSize.mediumBig,
+    rowGap: paddingSize.xBig,
+    display: "flex",
+    justifyContent: "center",
   },
-  idText: {
-    position: "absolute",
-    top: paddingSize.xSmall,
-    left: paddingSize.xSmall,
-    fontSize: fontSize.buttonMobileFontSize,
+  text: {
     color: primaryColors.darkBlue,
+    fontSize: fontSize.buttonMobileFontSize,
+    textAlign: "center",
   },
-  strongText: {
-    fontWeight: "700",
-    color: primaryColors.goldYellow,
+  image: {
+    height: 180,
+    alignSelf: "center",
+    borderColor: primaryColors.goldYellow,
+    borderWidth: 2,
+    borderRadius: borderRadiusSize.small,
+  },
+  buttonContainer: {
+    paddingHorizontal: paddingSize.mediumBig,
   },
 });
 
 const GeoGuesserIntroScreen = ({ navigation }) => {
+  const navigateToGeoguesser = () => {
+    navigation.navigate("GeoGuesser");
+  };
+
   return (
-    <View>
-      <PrimaryButton title={"Zaczynamy!"} />
-    </View>
+    <SafeAreaView style={geoguesserStyle.container}>
+      <Text style={geoguesserStyle.text}>
+        Znajdź miejsce ze zdjęcia na schemacie
+      </Text>
+      <Navbar id="124623" />
+      <Image
+        style={geoguesserStyle.image}
+        source={require("../../assets/geo1.jpg")}
+      />
+      <View style={geoguesserStyle.buttonContainer}>
+        <PrimaryButton
+          handleOnClick={navigateToGeoguesser}
+          title={"Zaczynamy!"}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
