@@ -1,4 +1,4 @@
-import { PrimaryButton } from "components/atoms";
+import { PrimaryButton, Title } from "components/atoms";
 import primaryColors from "properties/styles/colors";
 import { paddingSize } from "properties/styles/vars";
 import React from "react";
@@ -6,7 +6,6 @@ import { View, StyleSheet } from "react-native";
 
 export const mainStyle = StyleSheet.create({
   container: {
-    backgroundColor: primaryColors.babyBlue,
     paddingHorizontal: paddingSize.medium,
     paddingVertical: paddingSize.mediumBig,
     rowGap: paddingSize.mediumBig,
@@ -27,15 +26,18 @@ const MainScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <PrimaryButton
-        title={"Sieć neuronowa"}
-        handleOnClick={navigateToNetworkView}
-      ></PrimaryButton>
-      <PrimaryButton
-        title={"Xor"}
-        handleOnClick={navigateToXorPlaneView}
-      ></PrimaryButton>
+    <View style={[{ flex: 1 }, mainStyle.container]}>
+      <Title title="Grakonosze" />
+      <View style={mainStyle.buttonContainer}>
+        <PrimaryButton
+          title={"Sieć neuronowa"}
+          handleOnClick={navigateToNetworkView}
+        ></PrimaryButton>
+        <PrimaryButton
+          title={"Xor"}
+          handleOnClick={navigateToXorPlaneView}
+        ></PrimaryButton>
+      </View>
     </View>
   );
 };
