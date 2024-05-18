@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainScreen from "./src/screens/MainScreen";
 import QRScanner from "./src/screens/QRScanner";
 import QrScanScreen from "./src/screens/QrScanScreen";
+import CollectPrice from "./src/screens/CollectPrice";
+
 
 type RootStackParamList = {
   Home: undefined;
@@ -27,6 +29,7 @@ function App() {
         <Stack.Screen name="NetworkView" component={NetworkView} />
         <Stack.Screen name="XorPlaneView" component={XorPlaneView} />
         <Stack.Screen name="QRScanner" component={QRScanner} />
+        <Stack.Screen name="CollectPrice" component={CollectPrice} />
       </Stack.Navigator>
     </NavigationContainer>
   );
