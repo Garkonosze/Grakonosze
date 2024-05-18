@@ -1,7 +1,6 @@
-export class CollectionItemData {
-    itemId: string;
-    imageUrl: string;
-    coinColor: string;
-
-
+export interface CollectionItemData {
+    task_id: number;
+    name: string;
+    photo: string;
+    description: string;
 }
