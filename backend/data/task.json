@@ -1,0 +1,9 @@
+{
+    "tasks": [
+        {"task_id": 1, "name": "Alan Turing", "photo": "../../assets/turing.png", "description": "Lorem ipsum blablabla"},
+        {"task_id": 2, "name": "Garek", "photo": "../../assets/garek.png", "description": "Lorem ipsum blablabla"},
+        {"task_id": 3, "name": "Prof. Krzysztof Zielinski", "photo": "../../assets/zielu.png", "description": "Lorem ipsum blablabla"},
+        {"task_id": 4, "name": "Claude E. Shannon", "photo": "../../assets/shannon.png", "description": "Lorem ipsum blablabla"},
+        {"task_id": 5, "name": "Michał Idzik", "photo": "../../assets/idzik.png", "description": "Lorem ipsum blablabla"}
+    ]
+}
