@@ -1,12 +1,13 @@
 import * as React from "react";
 import NetworkView from "./src/screens/NetworkView";
 import XorPlaneView from "./src/screens/XorPlaneView";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {NavigationContainer} from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import MainScreen from "./src/screens/MainScreen";
 import QRScanner from "./src/screens/QRScanner";
 import QrScanScreen from "./src/screens/QrScanScreen";
 import CollectPrice from "./src/screens/CollectPrice";
+import CollectionView from "./src/screens/Collection/CollectionView";
 
 
 type RootStackParamList = {
@@ -23,13 +24,14 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MainScreen">
+      <Stack.Navigator initialRouteName="CollectionView">
         <Stack.Screen name="MainScreen" component={MainScreen} />
         <Stack.Screen name="QrScanScreen" component={QrScanScreen} />
         <Stack.Screen name="NetworkView" component={NetworkView} />
         <Stack.Screen name="XorPlaneView" component={XorPlaneView} />
         <Stack.Screen name="QRScanner" component={QRScanner} />
         <Stack.Screen name="CollectPrice" component={CollectPrice} />
+        <Stack.Screen name="CollectionView" component={CollectionView}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
