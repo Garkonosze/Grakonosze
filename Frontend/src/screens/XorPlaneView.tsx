@@ -2,13 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Svg, Rect } from 'react-native-svg';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
 
 type XorPlaneViewNavigationProp = StackNavigationProp<RootStackParamList, 'XorPlaneView'>;
-
-type Props = {
-  navigation: XorPlaneViewNavigationProp;
-};
 
 interface GridResult {
   x: number;
@@ -16,19 +13,25 @@ interface GridResult {
   value: number;
 }
 
-const XorPlaneView: React.FC<Props> = () => {
+type Props = {
+  navigation: XorPlaneViewNavigationProp;
+  route: RouteProp<RootStackParamList, 'XorPlaneView'>;
+};
+
+const XorPlaneView: React.FC<Props> = ({ navigation, route }) => {
+  const { weight1, weight2 } = route.params;
   const [results, setResults] = useState<GridResult[]>([]);
   
   useEffect(() => {
     const calculateXOR = (x: boolean, y: boolean): number => (x || y) && !(x && y) ? 1 : 0;
     const grid: GridResult[] = [];
-    for (let i = 0; i <= 1; i += 0.01) {
-      for (let j = 0; j <= 1; j += 0.01) {
+    for (let i = 0; i <= 1; i += 0.05) {
+      for (let j = 0; j <= 1; j += 0.05) {
         grid.push({ x: i, y: j, value: calculateXOR(i > 0.5, j > 0.5) });
       }
     }
     setResults(grid);
-  }, []);
+  }, [weight1, weight2]); // Assuming weight1 and weight2 will be used in future modifications
 
   return (
     <ScrollView>
@@ -40,8 +43,8 @@ const XorPlaneView: React.FC<Props> = () => {
               key={index}
               x={result.x * 400}
               y={result.y * 400}
-              width="4"
-              height="4"
+              width={4}  // Changed from string to number
+              height={4} // Changed from string to number
               fill={result.value ? 'red' : 'blue'}
             />
           ))}

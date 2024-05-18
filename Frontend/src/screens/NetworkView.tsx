@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Slider from '@react-native-community/slider';
-import Svg, { Line } from 'react-native-svg';
+import Svg, { Circle, Line } from 'react-native-svg';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App';
 
@@ -12,58 +12,66 @@ type Props = {
 };
 
 const NetworkView: React.FC<Props> = ({ navigation }) => {
-  const [weight1, setWeight1] = useState<number>(0);
-  const [weight2, setWeight2] = useState<number>(0);
+  const [inputWeights, setInputWeights] = useState<number[]>([0, 0, 0]);
 
   const getColor = (value: number): string => {
-    const red = Math.floor((value + 1) * 128);
-    const blue = 255 - red;
-    return `rgb(${red},0,${blue})`;
+    const normalized = (value + 1) / 2;
+    const maxGray = 96;
+    const power = 1.4;
+    const red = Math.floor(255 * normalized ** power);
+    const gray = Math.floor(maxGray - maxGray * Math.abs(1 - normalized));
+    const blue = Math.floor(255 * (1 - normalized) ** power);
+    return `rgb(${red}, ${gray}, ${blue})`;
+  };
+
+  const navigateToXorPlane = () => {
+    navigation.navigate('XorPlaneView', {
+      weights: inputWeights,
+    });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.rocText}>ROC: 0.85</Text>
-      <Svg height="200" width="200">
-        <Line
-          x1="50"
-          y1="50"
-          x2="150"
-          y2="50"
-          stroke={getColor(weight1)}
-          strokeWidth="2"
-        />
-        <Line
-          x1="50"
-          y1="150"
-          x2="150"
-          y2="150"
-          stroke={getColor(weight2)}
-          strokeWidth="2"
-        />
+      <Text style={styles.nnv}>Neural Network Visualization</Text>
+      <Svg height="300" width="300">
+        {/* Input Neurons */}
+        {[100, 150, 200].map((y, index) => (
+          <Circle key={y} cx="50" cy={y} r="20" fill={getColor(inputWeights[index])} />
+        ))}
+        {/* Output Neuron */}
+        <Circle cx="250" cy="150" r="20" fill="skyblue" />
+
+        {/* Connections */}
+        {[100, 150, 200].map((y, index) => (
+          <Line
+            key={y}
+            x1="70"
+            y1={y}
+            x2="230"
+            y2="150"
+            stroke={getColor(inputWeights[index])}
+            strokeWidth="2"
+          />
+        ))}
       </Svg>
-      <Text>Weight 1: {weight1.toFixed(2)}</Text>
-      <Slider
-        style={styles.slider}
-        minimumValue={-1}
-        maximumValue={2}
-        step={0.01001}
-        value={weight1}
-        onValueChange={setWeight1}
-      />
-      <Text>Weight 2: {weight2.toFixed(2)}</Text>
-      <Slider
-        style={styles.slider}
-        minimumValue={-1}
-        maximumValue={1}
-        step={0.01001}
-        value={weight2}
-        onValueChange={setWeight2}
-      />
-      <Text
-        style={styles.link}
-        onPress={() => navigation.navigate('XorPlaneView')}
-      >
+      {inputWeights.map((weight, index) => (
+        <View key={index} style={{ alignItems: 'center' }}>
+          <Text>Weight {index + 1}: {weight.toFixed(2)}</Text>
+          <Slider
+            style={styles.slider}
+            minimumValue={-1}
+            maximumValue={1}
+            step={0.01}
+            value={weight}
+            onValueChange={(newValue) => {
+              const newWeights = [...inputWeights];
+              newWeights[index] = newValue;
+              setInputWeights(newWeights);
+            }}
+          />
+        </View>
+      ))}
+      <Text style={styles.link} onPress={navigateToXorPlane}>
         Go to XOR Plane
       </Text>
     </View>
@@ -76,7 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  rocText: {
+  nnv: {
     fontSize: 18,
     marginBottom: 20,
   },
