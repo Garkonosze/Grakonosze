@@ -7,7 +7,11 @@
     "jsx": "react-native",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "components/*": ["src/components/*"],
+      "properties/*": ["src/properties/*"]
+    }
   },
   "include": ["src/**/*", "App.tsx"]
 }
