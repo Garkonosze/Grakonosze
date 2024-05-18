@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainScreen from "./src/screens/MainScreen";
 import QrScanScreen from "./src/screens/QrScanScreen";
+import GeoGuesserIntroScreen from "./src/screens/GeoGuesserIntroScreen";
 
 type RootStackParamList = {
   Home: undefined;
@@ -25,6 +26,10 @@ function App() {
         <Stack.Screen name="QrScanScreen" component={QrScanScreen} />
         <Stack.Screen name="NetworkView" component={NetworkView} />
         <Stack.Screen name="XorPlaneView" component={XorPlaneView} />
+        <Stack.Screen
+          name="GeoGuesserIntroScreen"
+          component={GeoGuesserIntroScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
