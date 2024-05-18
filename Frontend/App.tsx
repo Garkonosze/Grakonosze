@@ -5,9 +5,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainScreen from "./src/screens/MainScreen";
 
-export type RootStackParamList = {
+type RootStackParamList = {
+  Home: undefined;
   NetworkView: undefined;
-  XorPlaneView: undefined;
+  XorPlaneView: {
+    weight1: number;
+    weight2: number;
+  };
 };
 
 const Stack = createNativeStackNavigator();
