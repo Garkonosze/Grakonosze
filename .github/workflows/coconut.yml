@@ -1,0 +1,12 @@
+name: BACKEND coconut check
+
+on: [pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run coconut check
+        run: test -f ./backend/coconut.png
+        shell: bash
