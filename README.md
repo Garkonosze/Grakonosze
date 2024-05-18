@@ -100,10 +100,14 @@ Makiety UI zaimplementowane zostały w **Figmie: [link](https://www.figma.com/pr
 - Wprowadzanie wiecej mini gier
 - Rozszerzenie funkcjonalności na "not location based", chcemy uzyskać wiekszą skalowalność
 - Dodanie logowania i autoryzacji użytkowników
-<<<<<<< HEAD
 - Dodanie wersji przeglądarkowej
-=======
->>>>>>> master
+
+
+## Raport z retro
+
+1. **Zbyt długi setup projektu i problemy z githubem** - nieuniknione było napotkanie problemów niezależnych od nas, jednak były to problemy z setupem i githubem. Mamy je za sobą i uważamy, że nie mogliśmy ich uniknąć. Mogliśmy zacząć setup projektu wczoraj podczas zajęć i dzisaj być wszyscy gotowi do pracy od godziny 9:00 co by zaoszczędziło nam trochę czasu. Mamy nauke na przyszłość, żeby planować i setupować projekt jednoczesnie, aby napotkać i rozwiązać wszystkie problemy "wcześniej"
+2. **Cocconut CI i inne** - stwierdziliśmy że "Easter egg" w kodzie i projekcie to co coś istotnego i ciekawego dla przyszłych oraz obeznych studentów informatyki i zdecydowaliśmy, że programując dzisiaj i jutro dorzucimy pare fajnych "smaczków".
+3. **Fronted oriented project i React Native skill issue** - mamy zespół bardziej backendowy niż frontendowy. Co jest małym problemem, ale to nie my wybieraliśmy temat ;) Zdecydowaliśmy się na aplikacje mobilną w React Native, co jest dla nas nie lada wyzwaniem, ale po przeanalizowaniu tematu stwierdzamy, że jest to dla nas najlepszy wybór, ponieważ mimo malego doświadczenia każdy jest w stanie coś napisać. Przeorganizowaliśmy prace i podzieliliśmy się na części projektu, dzięki czemu nie wszyscy musimy zagłębiać się w każdy temat (np czytanie kodów QR). (Tak redukujemy skill issue).
 
 ## Zespół
 

@@ -4,6 +4,7 @@ import { paddingSize } from "properties/styles/vars";
 import React from "react";
 import { View, StyleSheet, Image, SafeAreaView } from "react-native";
 
+
 export const mainStyle = StyleSheet.create({
   container: {
     flex: 1,
@@ -26,6 +27,7 @@ export const mainStyle = StyleSheet.create({
 });
 
 const MainScreen = ({ navigation }) => {
+  
   const navigateToQrScanScreen = () => {
     navigation.navigate("QrScanScreen");
   };

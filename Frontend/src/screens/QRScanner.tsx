@@ -1,15 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../App';
+
+type NetworkViewNavigationProp = StackNavigationProp<RootStackParamList, 'NetworkView'>;
+
+type Props = {
+  navigation: NetworkViewNavigationProp;
+};
+
+const QR_MAP = [
+  "MainScreen", // 0
+  "NetworkView", // 1
+  "XorPlaneView", // 2
+];
 
 
-function handleBarCodeScanned(setScanned: Function, result: BarCodeScannerResult) {
+function handleBarCodeScanned(navigation: NetworkViewNavigationProp, setScanned: Function, result: BarCodeScannerResult) {
     setScanned(true);
-    alert(`Bar code with type ${result.type} and data ${result.data} has been scanned!`);
+
+    let number_string = result.data[result.data.length-1];
+    if (!"0123456789".includes(number_string) || !result.data.startsWith("Twoje")) {
+      alert("NIE SKANUJ TEGO");
+      return;
+    }
+
+    let number = Number(result.data[result.data.length-1]);
+    alert(`${result.data.slice(0, result.data.length-1)}`);
+    navigation.navigate(QR_MAP[number]);
 }
 
 
-export default function QRScanner() {
+const QRScanner = ({navigation}) => {
   const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
 
@@ -22,7 +45,7 @@ export default function QRScanner() {
     getBarCodeScannerPermissions();
   }, []);
 
-  const handleBarCodeScannedStateful = (result: BarCodeScannerResult) => handleBarCodeScanned(setScanned, result);
+  const handleBarCodeScannedStateful = (result: BarCodeScannerResult) => handleBarCodeScanned(navigation, setScanned, result);
 
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
@@ -37,7 +60,7 @@ export default function QRScanner() {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScannedStateful}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+      {scanned && <Button title={'Naciśnij by zeskanować na nowo'} onPress={() => setScanned(false)} />}
     </View>
   );
 }
@@ -49,5 +72,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default QRScanner;
+
 
 
