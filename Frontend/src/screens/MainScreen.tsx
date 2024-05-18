@@ -1,8 +1,8 @@
-import { PrimaryButton, Title } from "components/atoms";
+import {PrimaryButton, Title} from "components/atoms";
 import Navbar from "components/molecules/Navbar";
-import { paddingSize } from "properties/styles/vars";
+import {paddingSize} from "properties/styles/vars";
 import React from "react";
-import { View, StyleSheet, Image, SafeAreaView } from "react-native";
+import {Image, SafeAreaView, StyleSheet, View} from "react-native";
 
 
 export const mainStyle = StyleSheet.create({
@@ -32,6 +32,10 @@ const MainScreen = ({ navigation }) => {
     navigation.navigate("QrScanScreen");
   };
 
+  const navigateToCollectionView = () => {
+    navigation.navigate("CollectionView");
+  };
+
   return (
     <View style={[{ flex: 1 }]}>
       <SafeAreaView style={mainStyle.container}>
@@ -46,7 +50,11 @@ const MainScreen = ({ navigation }) => {
             title={"Skanuj kod QR"}
             handleOnClick={navigateToQrScanScreen}
           ></PrimaryButton>
-          <PrimaryButton title={"Kolekcja"}></PrimaryButton>
+          <PrimaryButton
+              title={"Kolekcja"}
+              handleOnClick={navigateToCollectionView}
+          >
+          </PrimaryButton>
           <PrimaryButton title={"Ranking"}></PrimaryButton>
         </View>
       </SafeAreaView>
