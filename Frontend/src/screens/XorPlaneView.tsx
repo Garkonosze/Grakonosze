@@ -1,13 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Svg, Rect } from 'react-native-svg';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../App';
 
-const XorPlaneView = ({ navigation }) => {
-  const [results, setResults] = useState([]);
+type XorPlaneViewNavigationProp = StackNavigationProp<RootStackParamList, 'XorPlaneView'>;
+
+type Props = {
+  navigation: XorPlaneViewNavigationProp;
+};
+
+interface GridResult {
+  x: number;
+  y: number;
+  value: number;
+}
+
+const XorPlaneView: React.FC<Props> = () => {
+  const [results, setResults] = useState<GridResult[]>([]);
   
   useEffect(() => {
-    const calculateXOR = (x, y) => (x || y) && !(x && y) ? 1 : 0;
-    const grid = [];
+    const calculateXOR = (x: boolean, y: boolean): number => (x || y) && !(x && y) ? 1 : 0;
+    const grid: GridResult[] = [];
     for (let i = 0; i <= 1; i += 0.01) {
       for (let j = 0; j <= 1; j += 0.01) {
         grid.push({ x: i, y: j, value: calculateXOR(i > 0.5, j > 0.5) });

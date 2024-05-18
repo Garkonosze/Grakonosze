@@ -2,12 +2,20 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Slider from '@react-native-community/slider';
 import Svg, { Line } from 'react-native-svg';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../App';
 
-const NetworkView = ({ navigation }) => {
-  const [weight1, setWeight1] = useState(0);
-  const [weight2, setWeight2] = useState(0);
+type NetworkViewNavigationProp = StackNavigationProp<RootStackParamList, 'NetworkView'>;
 
-  const getColor = (value) => {
+type Props = {
+  navigation: NetworkViewNavigationProp;
+};
+
+const NetworkView: React.FC<Props> = ({ navigation }) => {
+  const [weight1, setWeight1] = useState<number>(0);
+  const [weight2, setWeight2] = useState<number>(0);
+
+  const getColor = (value: number): string => {
     const red = Math.floor((value + 1) * 127.5);
     const blue = 255 - red;
     return `rgb(${red},0,${blue})`;
