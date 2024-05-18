@@ -4,6 +4,7 @@ import XorPlaneView from "./src/screens/XorPlaneView";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainScreen from "./src/screens/MainScreen";
+import QRScanner from "./src/screens/QRScanner";
 
 export type RootStackParamList = {
   NetworkView: undefined;
@@ -19,6 +20,7 @@ function App() {
         <Stack.Screen name="MainScreen" component={MainScreen} />
         <Stack.Screen name="NetworkView" component={NetworkView} />
         <Stack.Screen name="XorPlaneView" component={XorPlaneView} />
+        <Stack.Screen name="QRScanner" component={QRScanner} />
       </Stack.Navigator>
     </NavigationContainer>
   );
