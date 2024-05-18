@@ -16,7 +16,7 @@ const NetworkView: React.FC<Props> = ({ navigation }) => {
   const [weight2, setWeight2] = useState<number>(0);
 
   const getColor = (value: number): string => {
-    const red = Math.floor((value + 1) * 127.5);
+    const red = Math.floor((value + 1) * 128);
     const blue = 255 - red;
     return `rgb(${red},0,${blue})`;
   };
@@ -46,8 +46,8 @@ const NetworkView: React.FC<Props> = ({ navigation }) => {
       <Slider
         style={styles.slider}
         minimumValue={-1}
-        maximumValue={1}
-        step={0.01}
+        maximumValue={2}
+        step={0.01001}
         value={weight1}
         onValueChange={setWeight1}
       />
@@ -56,7 +56,7 @@ const NetworkView: React.FC<Props> = ({ navigation }) => {
         style={styles.slider}
         minimumValue={-1}
         maximumValue={1}
-        step={0.01}
+        step={0.01001}
         value={weight2}
         onValueChange={setWeight2}
       />
