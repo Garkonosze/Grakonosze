@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import NetworkView from './src/screens/NetworkView';
-import XorPlaneView from './src/screens/XorPlaneView';
+import * as React from "react";
+import NetworkView from "./src/screens/NetworkView";
+import XorPlaneView from "./src/screens/XorPlaneView";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
   NetworkView: undefined;
   XorPlaneView: undefined;
 };
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
   return (
