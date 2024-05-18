@@ -8,7 +8,7 @@ scoreboard = defaultdict(lambda: 0)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello Garek"}
+    return {"message": "Hello Garek!"}
 
 
 @app.put("/add_score")
