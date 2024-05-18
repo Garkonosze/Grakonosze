@@ -8,6 +8,8 @@ import StartScreen from "./src/screens/StartScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import QRScanner from "./src/screens/QRScanner";
 import QrScanScreen from "./src/screens/QrScanScreen";
+import CollectPrice from "./src/screens/CollectPrice";
+
 
 type RootStackParamList = {
   Home: undefined;
@@ -31,6 +33,7 @@ function App() {
         <Stack.Screen name="NetworkView" component={NetworkView} />
         <Stack.Screen name="XorPlaneView" component={XorPlaneView} />
         <Stack.Screen name="QRScanner" component={QRScanner} />
+        <Stack.Screen name="CollectPrice" component={CollectPrice} />
       </Stack.Navigator>
     </NavigationContainer>
   );
