@@ -24,6 +24,9 @@ const QrScanScreen = ({ navigation }) => {
     navigation.navigate("XorPlaneView");
   };
 
+  const navigateToGeoguesser = () => {
+    navigation.navigate("GeoGuesserIntroScreen");
+
   const navigateToQRScanner = () => {
     navigation.navigate("QRScanner");
   };
@@ -41,7 +44,11 @@ const QrScanScreen = ({ navigation }) => {
           handleOnClick={navigateToXorPlaneView}
         ></PrimaryButton>
         <PrimaryButton
-          title={"QR Scanner"}
+          title={"Geoguesser"}
+          handleOnClick={navigateToGeoguesser}
+        ></PrimaryButton>
+        <PrimaryButton
+          title={"QRScanner"}
           handleOnClick={navigateToQRScanner}
         ></PrimaryButton>
       </View>
