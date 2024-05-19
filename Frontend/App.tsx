@@ -1,8 +1,8 @@
 import * as React from "react";
 import NetworkView from "./src/screens/NetworkView";
 import XorPlaneView from "./src/screens/XorPlaneView";
-import {NavigationContainer} from "@react-navigation/native";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainScreen from "./src/screens/MainScreen";
 import StartScreen from "./src/screens/StartScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
@@ -12,7 +12,7 @@ import GeoGuesserIntroScreen from "./src/screens/GeoGuesserIntroScreen";
 import GeoGuesser from "./src/screens/GeoGuesser";
 import CollectPrice from "./src/screens/CollectPrice";
 import CollectionView from "./src/screens/Collection/CollectionView";
-
+import GeoGuesserFinal from "./src/screens/GeoGuesserFinal";
 
 type RootStackParamList = {
   Home: undefined;
@@ -40,9 +40,10 @@ function App() {
           component={GeoGuesserIntroScreen}
         />
         <Stack.Screen name="GeoGuesser" component={GeoGuesser} />
+        <Stack.Screen name="GeoGuesserFinal" component={GeoGuesserFinal} />
         <Stack.Screen name="QRScanner" component={QRScanner} />
         <Stack.Screen name="CollectPrice" component={CollectPrice} />
-        <Stack.Screen name="CollectionView" component={CollectionView}/>
+        <Stack.Screen name="CollectionView" component={CollectionView} />
       </Stack.Navigator>
     </NavigationContainer>
   );
