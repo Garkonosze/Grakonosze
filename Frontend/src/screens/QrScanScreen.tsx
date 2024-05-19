@@ -53,7 +53,7 @@ const QrScanScreen = ({ navigation }) => {
           handleOnClick={navigateToGeoguesser}
         ></PrimaryButton>
         <PrimaryButton
-          title={"PhotoWithIntroScreen"}
+          title={"Photo With"}
           handleOnClick={navigateToPhotoWithIntroScreen}
         ></PrimaryButton>
         <PrimaryButton
