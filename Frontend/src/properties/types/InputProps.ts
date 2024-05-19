@@ -1,4 +1,5 @@
 export type InputProps = {
-    placeholder?: string;
-    maxLength?: number;
-  };
+  placeholder?: string;
+  maxLength?: number;
+  getInputElement: (text: string) => void;
+};
