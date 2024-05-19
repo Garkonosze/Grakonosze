@@ -42,7 +42,7 @@ export const photoWithStyle = StyleSheet.create({
     },
   imageContainer: {
     position: "absolute",
-    bottom: 250,
+    bottom: 330,
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
