@@ -1,10 +1,11 @@
 import {FlatList, SafeAreaView, StyleSheet, View} from "react-native";
 import {paddingSize} from "properties/styles/vars";
-import RankingItem, { TaskItemProps } from "./RankingItem";
+import RankingItem from "./RankingItem";
 import Navbar from "components/molecules/Navbar";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {Title} from "components/atoms";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Termometer from "components/molecules/Termometer";
 
 const data = {
     scoreboard: [
@@ -39,12 +40,19 @@ export const mainStyle = StyleSheet.create({
     },
     title: {
         marginTop: 50
+    },
+    scoreboard: {
+        paddingHorizontal: paddingSize.medium,
+        paddingVertical: paddingSize.mediumBig,
+        rowGap: paddingSize.medium,
+        width: '70%'
     }
 })
 
 const RankingView: React.FC<{ navigation: any }> = ({navigation}) => {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState<any[]>([]);
+    const [scoreData, setScoreData] = useState<number>(0);
 
     const getCollectionData = async (backendIP: any, id: any) => {
         try {
@@ -59,13 +67,28 @@ const RankingView: React.FC<{ navigation: any }> = ({navigation}) => {
         }
     }
 
+    const getScore = async (backendIP: any, id: any) => {
+        try {
+            console.log(backendIP)
+            const response = await fetch(`${backendIP}/scoreboard/${id}`);
+            const json = await response.json();
+            setScoreData(json.score);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false)
+        }
+    }
+
     useEffect(() => {
         AsyncStorage.getItem("backendIP").then((backendIP) => {
         AsyncStorage.getItem("userId").then((userId) => {
             getCollectionData(backendIP, userId)
+            getScore(backendIP, userId)
         });
         }); 
     }, [])
+
 
     return (
         <View style={[{flex: 1}]}>
@@ -78,11 +101,14 @@ const RankingView: React.FC<{ navigation: any }> = ({navigation}) => {
                         renderItem={({item}) => <RankingItem item={item}/>}
                         keyExtractor={item => item.place.toString()}
                         numColumns={1}
-                        contentContainerStyle={mainStyle.container}
+                        contentContainerStyle={mainStyle.scoreboard}
                     />}
                 </View>
             </SafeAreaView>
+            <Termometer progress={scoreData}/>
+
         </View>
+
     );
 }
 

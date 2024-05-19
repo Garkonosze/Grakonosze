@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { CameraView, BarcodeScanningResult, useCameraPermissions } from 'expo-camera';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../App';
-import { CommonActions } from '@react-navigation/native';
+import React, {useState} from 'react';
+import {Button, StyleSheet, Text, View} from 'react-native';
+import {BarcodeScanningResult, CameraView, useCameraPermissions} from 'expo-camera';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../App';
+import {CommonActions} from '@react-navigation/native';
 
 type NetworkViewNavigationProp = StackNavigationProp<RootStackParamList, 'NetworkView'>;
 
@@ -12,9 +12,9 @@ type Props = {
 };
 
 const QR_MAP = [
-  "MainScreen", // 0
-  "NetworkView", // 1
-  "XorPlaneView", // 2
+    "GeoGuesserIntroScreen", // 0
+    "PhotoWithIntroScreen", // 1
+    "NetworkView", // 2
 ];
 
 

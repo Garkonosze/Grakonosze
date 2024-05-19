@@ -1,4 +1,4 @@
-import {ActivityIndicator, FlatList, SafeAreaView, StyleSheet, View, Text} from "react-native";
+import {ActivityIndicator, FlatList, SafeAreaView, StyleSheet, View} from "react-native";
 import {paddingSize} from "properties/styles/vars";
 import Navbar from "components/molecules/Navbar";
 import React, {useEffect, useState} from "react";
@@ -66,7 +66,7 @@ const CollectionView: React.FC<{ navigation: any }> = ({navigation}) => {
                         <Title title={"Kolekcja"}/>
                         <FlatList
                             data={data}
-                            renderItem={({item}) => <CollectionItem item={item}/>}
+                            renderItem={({item}) => <CollectionItem item={item} c="garek.jpg"/>}
                             keyExtractor={item => item.task_id.toString()}
                             numColumns={3}
                             contentContainerStyle={mainStyle.container}

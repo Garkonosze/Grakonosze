@@ -1,10 +1,11 @@
-import { PrimaryButton, Title } from "components/atoms";
+import {PrimaryButton, Title} from "components/atoms";
 import LinkButton from "components/atoms/LinkButton";
 import TextInputPersonalized from "components/atoms/TextInputPersonalized";
 import primaryColors from "properties/styles/colors";
-import { paddingSize } from "properties/styles/vars";
-import React from "react";
-import { View, StyleSheet, Image, SafeAreaView } from "react-native";
+import {paddingSize} from "properties/styles/vars";
+import React, {useState} from "react";
+import {Image, SafeAreaView, StyleSheet, View} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const mainStyle = StyleSheet.create({
   container: {
@@ -28,14 +29,47 @@ export const mainStyle = StyleSheet.create({
 });
 
 const RegisterScreen = ({ navigation }) => {
+  const [text, setText] = useState("");
 
-  const navigateMainScreen = () => {
-    navigation.navigate("MainScreen");
+  const navigateMainScreen = async () => {
+    AsyncStorage.getItem("backendIP").then((backendIP) => {
+      signUp(backendIP, text).then((loginData) => {
+        console.log(loginData);
+        if (loginData !== '' && loginData !== undefined) navigation.navigate("MainScreen");
+        try {
+          AsyncStorage.setItem("userId", loginData);
+        } catch (error) {
+          console.error("Error setting item:", error);
+        }
+      })
+    });
+
+
   };
 
   const navigateStartScreen = () => {
     navigation.navigate("StartScreen");
+  }
+
+  const getInputElement = (text: string) => {
+    setText(text);
   };
+
+  const signUp = async (backendIP: any, name: any) => {
+    try {
+      // console.log(backendIP)
+      const response = await fetch(`${backendIP}/register/${name}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const json = await response.json();
+      return json.user.hash;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <View style={[{ flex: 1 }]}>
@@ -46,7 +80,8 @@ const RegisterScreen = ({ navigation }) => {
         />
         <Title title="Grakonosze" />
         <View style={mainStyle.buttonContainer}>
-            <TextInputPersonalized 
+          <TextInputPersonalized
+              getInputElement={getInputElement}
             placeholder={"Wpisz swój nick"}
             maxLength={30}/>
           <PrimaryButton

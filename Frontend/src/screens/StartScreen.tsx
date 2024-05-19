@@ -1,11 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { PrimaryButton, Title } from "components/atoms";
+import {PrimaryButton, Title} from "components/atoms";
 import LinkButton from "components/atoms/LinkButton";
 import TextInputPersonalized from "components/atoms/TextInputPersonalized";
 import primaryColors from "properties/styles/colors";
-import { paddingSize } from "properties/styles/vars";
-import React, { useState } from "react";
-import { View, StyleSheet, Image, SafeAreaView } from "react-native";
+import {paddingSize} from "properties/styles/vars";
+import React, {useState} from "react";
+import {Image, SafeAreaView, StyleSheet, View} from "react-native";
 
 export const mainStyle = StyleSheet.create({
   container: {
@@ -32,7 +32,14 @@ const StartScreen = ({ navigation }) => {
   const [text, setText] = useState("");
 
   const navigateMainScreen = async () => {
-    navigation.navigate("MainScreen");
+    AsyncStorage.getItem("backendIP").then((backendIP) => {
+      getLoginCheck(backendIP, text).then((loginData) => {
+        console.log(loginData);
+        if (loginData !== '' && loginData !== undefined) navigation.navigate("MainScreen");
+
+      })
+    });
+
 
     try {
       await AsyncStorage.setItem("userId", text);
@@ -40,6 +47,22 @@ const StartScreen = ({ navigation }) => {
       console.error("Error setting item:", error);
     }
   };
+
+  const getLoginCheck = async (backendIP: any, id: any) => {
+    try {
+      console.log(backendIP)
+      const response = await fetch(`${backendIP}/login/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const json = await response.json();
+      return json.name;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const navigateToRegisterScreen = () => {
     navigation.navigate("RegisterScreen");

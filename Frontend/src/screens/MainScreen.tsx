@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { PrimaryButton, Title } from "components/atoms";
+import {PrimaryButton, Title} from "components/atoms";
 import Navbar from "components/molecules/Navbar";
-import { paddingSize } from "properties/styles/vars";
-import React, { useEffect, useState } from "react";
-import { Image, SafeAreaView, StyleSheet, View } from "react-native";
+import {paddingSize} from "properties/styles/vars";
+import React, {useEffect, useState} from "react";
+import {Image, SafeAreaView, StyleSheet, View} from "react-native";
 
 export const mainStyle = StyleSheet.create({
   container: {
@@ -23,7 +23,8 @@ export const mainStyle = StyleSheet.create({
     height: 120,
     resizeMode: "contain",
     alignSelf: "center",
-  },
+  }
+
 });
 
 const MainScreen = ({ navigation }) => {

@@ -1,7 +1,7 @@
 import React from "react";
-import { View, StyleSheet, Image, Text, SafeAreaView } from "react-native";
-import { fontSize, paddingSize } from "properties/styles/vars";
-import { PrimaryButton, Title } from "components/atoms";
+import {Image, SafeAreaView, StyleSheet, Text, View} from "react-native";
+import {fontSize, paddingSize} from "properties/styles/vars";
+import {PrimaryButton, Title} from "components/atoms";
 import Navbar from "components/molecules/Navbar";
 import primaryColors from "properties/styles/colors";
 
@@ -29,6 +29,7 @@ export const mainStyle = StyleSheet.create({
     width: 150,
     borderRadius: 300,
     alignSelf: "center",
+    borderWidth: 5,
   },
   smallText: {
     color: primaryColors.darkBlue,
@@ -49,6 +50,21 @@ const CollectPrice = ({ navigation, route }) => {
     navigation.navigate("MainScreen");
   };
 
+  const getColor = (color: string) => {
+    console.log(color)
+    if (color == "gold") {
+      return "#FFD700";
+    } else if (color == "diamond") {
+      return "#b9f2ff";
+    } else if (color == "bronze") {
+      return "#CD7F32"
+    } else if (color == "silver") {
+      return "#C0C0C0"
+    }
+
+    return "black"
+  }
+
   return (
     <View style={[{ flex: 1 }]}>
       <SafeAreaView style={mainStyle.container}>
@@ -57,10 +73,25 @@ const CollectPrice = ({ navigation, route }) => {
           style={mainStyle.logo}
           source={require("../../assets/logo_podstawowe.png")}
         />
-        <Image
-          style={mainStyle.coin}
-          source={require("../../assets/marek.jpg")}
-        />
+        {route.params.data.photo == "../../../assets/marek.jpg" &&
+            <Image style={[mainStyle.coin, {borderColor: getColor(route.params.data.color)}]}
+                   source={route.params.data.name == "???" ? require("../../assets/unknown.png") : require("../../assets/marek.jpg")}/>}
+        {route.params.data.photo == "../../../assets/zielu.png" &&
+            <Image style={[mainStyle.coin, {borderColor: getColor(route.params.data.color)}]}
+                   source={require("../../assets/zielu.jpg")}/>}
+        {route.params.data.photo == "../../../assets/idzik.png" &&
+            <Image style={[mainStyle.coin, {borderColor: getColor(route.params.data.color)}]}
+                   source={require("../../assets/idzik.png")}/>}
+        {route.params.data.photo == "../../../assets/shannon.png" &&
+            <Image style={[mainStyle.coin, {borderColor: getColor(route.params.data.color)}]}
+                   source={require("../../assets/shannon.jpg")}/>}
+        {route.params.data.photo == "../../../assets/turing.png" &&
+            <Image style={[mainStyle.coin, {borderColor: getColor(route.params.data.color)}]}
+                   source={require("../../assets/turing.jpg")}/>}
+        {route.params.data.name == "???" &&
+            <Image style={[mainStyle.coin, {borderColor: getColor(route.params.data.color)}]}
+                   source={require("../../assets/unknown.png")}/>}
+
         <Title title={"Brawo!"} />
         <Text style={mainStyle.smallText}>{`Zdobywasz ${route.params.data.color}`}</Text>
         <Text style={mainStyle.coinName}>{route.params.data.name}</Text>
