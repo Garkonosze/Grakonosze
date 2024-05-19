@@ -44,7 +44,7 @@ export const photoWithStyle = StyleSheet.create({
 });
 
 const PhotoWithFinalScreen = ({ navigation, route }) => {
-  const [points, setPoints] = React.useState(0);
+  const [points, setPoints] = React.useState(route.params.points);
 
   const photo: CameraCapturedPicture = route.params.photo;
 
@@ -75,10 +75,33 @@ const PhotoWithFinalScreen = ({ navigation, route }) => {
     });
   };
 
-  const isPersonModel = () => {
-    // modelBRRRbRRRRRRRRRR!
-    setPoints(100);
-  };
+  // const isPersonModel = async () => {
+
+  //   const backendIP = AsyncStorage.getItem("backendIP");
+
+  //   const response = await fetch(`${backendIP}/garque`, {
+  //     method: "GET",
+  //     // headers: {
+  //     //   "Content-Type": "application/json",
+  //     // },
+  //     body: photo.base64,
+  //   });
+
+  //   const answer = await response.toString()
+
+  //   let points = 25;
+  //   if (answer == "Garek") {
+  //     points = 100;
+  //   }
+
+  //   return points;
+
+  //   // modelBRRRbRRRRRRRRRR!
+  //   setPoints(points);
+  // };
+
+  
+  // isPersonModel();
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
