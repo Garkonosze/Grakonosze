@@ -1,4 +1,4 @@
-import { PrimaryButton } from "components/atoms";
+import { PrimaryButton, Title } from "components/atoms";
 import { Modal } from "components/molecules/Modal";
 import Navbar from "components/molecules/Navbar";
 import primaryColors from "properties/styles/colors";
@@ -25,7 +25,7 @@ export const geoguesserStyle = StyleSheet.create({
     paddingVertical: paddingSize.mediumBig,
     rowGap: paddingSize.xBig,
     display: "flex",
-    justifyContent: "center",
+    paddingTop: 100,
   },
   text: {
     color: primaryColors.darkBlue,
@@ -50,7 +50,7 @@ export const geoguesserStyle = StyleSheet.create({
     paddingHorizontal: paddingSize.mediumBig,
   },
   map: {
-    height: "70%",
+    height: "30%",
   },
   imageBig: {
     width: "100%",
@@ -74,67 +74,65 @@ export const geoguesserStyle = StyleSheet.create({
   },
 });
 
-const GeoGuesser = ({ navigation }) => {
-  const [isModalVisible, setIsModalVisible] = React.useState(false);
+const GeoGuesserFinal = ({ navigation, route }) => {
   const windowHeight = Dimensions.get("window").height;
-  const imageHeight =
-    ((windowHeight - 2 * paddingSize.mediumBig - paddingSize.xBig) * 70) / 100;
+  const windowWidth = Dimensions.get("window").width;
+  const imageHeight = (windowHeight * 30) / 100;
   const imageWidth = (630 * imageHeight) / 1182;
-  const goodLocationWidth = imageWidth - (imageWidth * 20) / 100;
-  const goodLocationHeight = imageHeight - (imageHeight * 50) / 100;
-  const [locationHeight, setLocationHeight] = useState(-30);
-  const [locationWidth, setLocationWidth] = useState(-30);
+  const paddingLeft = (windowWidth - imageWidth) / 2;
+  const goodLocationWidth =
+    (route.params.goodLocationWidth * 3) / 7 + paddingLeft;
+  const goodLocationHeight = (route.params.goodLocationHeight * 3) / 7;
+  const locationHeight = (route.params.locationHeight * 3) / 7;
+  const locationWidth = (route.params.locationWidth * 3) / 7 + paddingLeft;
+  const diff = Math.round(
+    Math.sqrt(
+      Math.pow(route.params.goodLocationWidth - route.params.locationWidth, 2) +
+        Math.pow(
+          route.params.goodLocationHeight - route.params.locationHeight,
+          2
+        )
+    )
+  );
 
-  const handleModal = () => setIsModalVisible(() => !isModalVisible);
+  let pts = 0;
 
-  const navigateToFinal = () => {
-    navigation.navigate("GeoGuesserFinal", {
-      goodLocationWidth: goodLocationWidth,
-      goodLocationHeight: goodLocationHeight,
-      locationHeight: locationHeight,
-      locationWidth: locationWidth,
-    });
-  };
+  if (diff < 40) {
+    pts = 100;
+  } else if (diff < 70) {
+    pts = 75;
+  } else if (diff < 100) {
+    pts = 50;
+  } else if (diff < 150) {
+    pts = 25;
+  }
 
-  const handlePress = (evt: {
-    nativeEvent: { locationX: any; locationY: any; pageX: any; pageY: any };
-  }) => {
-    setLocationWidth(evt.nativeEvent.pageX);
-    setLocationHeight(evt.nativeEvent.pageY - 100);
+  const navigateToPrice = () => {
+    navigation.navigate("CollectPrice");
   };
 
   return (
     <View style={{ flex: 1 }}>
       <View style={geoguesserStyle.container}>
         <Navbar id="124623" />
-        <Pressable
-          onPress={(evt) => handlePress(evt)}
-          style={geoguesserStyle.map}
-        >
+        <View style={geoguesserStyle.map}>
           <Image
             style={geoguesserStyle.mapImage}
             source={require("../../assets/plan.png")}
           />
-        </Pressable>
+        </View>
+        <View>
+          <Text style={geoguesserStyle.text}>Pomyliłeś się o {diff} px</Text>
+          <Text style={geoguesserStyle.text}>Zdobywasz</Text>
+          <Title title={pts + " pkt"} />
+          <Text style={geoguesserStyle.text}>na 100 mozliwych</Text>
+        </View>
         <PrimaryButton
-          handleOnClick={navigateToFinal}
+          handleOnClick={navigateToPrice}
           inactive={locationHeight < 0}
-          title={"Potwierdź"}
+          title={"Kontynuuj"}
         />
       </View>
-      <Pressable onPress={handleModal} style={geoguesserStyle.imageContainer}>
-        <Image
-          style={geoguesserStyle.image}
-          source={require("../../assets/geo1.jpg")}
-        />
-        <Image
-          style={[
-            geoguesserStyle.image,
-            { position: "absolute", opacity: 0.6 },
-          ]}
-          source={require("../../assets/lupa.png")}
-        />
-      </Pressable>
       <Image
         style={[
           geoguesserStyle.locationGood,
@@ -149,22 +147,8 @@ const GeoGuesser = ({ navigation }) => {
         ]}
         source={require("../../assets/location.png")}
       />
-      <Modal isVisible={isModalVisible}>
-        <Modal.Container>
-          <Modal.Header title="Znajdź zdjęcie na schemacie" />
-          <Modal.Body>
-            <Image
-              style={geoguesserStyle.imageBig}
-              source={require("../../assets/geo1.jpg")}
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <PrimaryButton title="Zamknij" handleOnClick={handleModal} />
-          </Modal.Footer>
-        </Modal.Container>
-      </Modal>
     </View>
   );
 };
 
-export default GeoGuesser;
+export default GeoGuesserFinal;
