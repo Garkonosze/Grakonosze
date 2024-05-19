@@ -41,6 +41,10 @@ const MainScreen = ({ navigation }) => {
     navigation.navigate("CollectionView");
   };
 
+  const navigateToRankingView = () => {
+    navigation.navigate("RankingView");
+  };
+
   const [id, setId] = useState("");
 
   useEffect(() => {
@@ -65,7 +69,10 @@ const MainScreen = ({ navigation }) => {
             title={"Kolekcja"}
             handleOnClick={navigateToCollectionView}
           ></PrimaryButton>
-          <PrimaryButton title={"Ranking"}></PrimaryButton>
+          <PrimaryButton
+            title={"Ranking"}
+            handleOnClick={navigateToRankingView}
+          ></PrimaryButton>
         </View>
       </SafeAreaView>
     </View>

@@ -17,6 +17,8 @@ import {
   Pressable,
   Dimensions,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 export const geoguesserStyle = StyleSheet.create({
   container: {
@@ -107,8 +109,29 @@ const GeoGuesserFinal = ({ navigation, route }) => {
     pts = 25;
   }
 
+  const getCollectionData = async (backendIP: any, id: any) => {
+    try {
+        console.log(backendIP)
+        const response = await fetch(`${backendIP}/scores`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({user_hash: id, score: pts, task_id: 1})});
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
   const navigateToPrice = () => {
-    navigation.navigate("CollectPrice");
+      AsyncStorage.getItem("backendIP").then((backendIP) => {
+      AsyncStorage.getItem("userId").then((userId) => {
+          getCollectionData(backendIP, userId)
+          .then((score) => navigation.navigate("CollectPrice", {data: score}))
+      });
+      }); 
   };
 
   return (
