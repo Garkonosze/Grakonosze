@@ -23,11 +23,6 @@ export const mainStyle = StyleSheet.create({
     height: 120,
     resizeMode: "contain",
     alignSelf: "center",
-  },
-  progressBar: {
-    position: "absolute",
-    left: 0,
-    top: 0,
   }
 
 });

@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useEffect} from "react";
 import NetworkView from "./src/screens/NetworkView";
 import XorPlaneView from "./src/screens/XorPlaneView";
 import {NavigationContainer} from "@react-navigation/native";
@@ -19,7 +20,6 @@ import CollectionView from "./src/screens/Collection/CollectionView";
 import RankingView from "./src/screens/Ranking/RankingView";
 import GeoGuesserFinal from "./src/screens/GeoGuesserFinal";
 import CameraGame from "./src/screens/CameraGame";
-import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
@@ -37,7 +37,7 @@ const Stack = createNativeStackNavigator();
 function App() {
   
   useEffect(() => {
-    AsyncStorage.setItem("backendIP", "http://172.20.10.6:8000");
+    AsyncStorage.setItem("backendIP", "http://192.168.21.87:8000");
   }, [])
 
   return (

@@ -10,7 +10,7 @@ interface VerticalProgressBarProps {
 }
 
 const VerticalProgressBar: React.FC<VerticalProgressBarProps> = ({progress}) => {
-    const boundedProgress = Math.min(100, Math.max(0, progress));
+    const boundedProgress = Math.min(500, Math.max(0, progress)) / 5;
     const progressBarHeight = (height * 0.6 * boundedProgress) / 100;
 
     const positions = [33, 66, 100];
