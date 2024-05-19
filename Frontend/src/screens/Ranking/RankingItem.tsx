@@ -5,10 +5,10 @@ import primaryColors from "properties/styles/colors";
 
 interface TaskItemProps {
     item: {
-        task_id: number;
         name: string;
-        photo: string;
-        description: string;
+        hash: string;
+        score: number;
+        place: number;
     };
 }
 
@@ -20,7 +20,10 @@ export const mainStyle = StyleSheet.create({
     },
     itemContainer: {
         flex: 1,
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         margin: 5,
     },
     image: {
@@ -37,15 +40,12 @@ export const mainStyle = StyleSheet.create({
     },
 })
 
-const CollectionItem: React.FC<TaskItemProps> = ({item}) => (
-
-
+const RankingItem: React.FC<TaskItemProps> = ({item}) => (
     <View style={mainStyle.itemContainer}>
-        <Text>{item.photo}</Text>
-        <Image style={mainStyle.image}
-               source={item.name == "???" ? require("../../../assets/unknown.png") : {uri: item.photo}}/>
+        <Text style={mainStyle.text}>{item.place}</Text>
         <Text style={mainStyle.text}>{item.name}</Text>
+        <Text style={mainStyle.text}>{item.score}</Text>
     </View>
 );
 
-export default CollectionItem;
+export default RankingItem;

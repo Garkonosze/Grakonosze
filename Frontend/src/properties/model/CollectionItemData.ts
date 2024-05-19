@@ -3,4 +3,5 @@ export interface CollectionItemData {
     name: string;
     photo: string;
     description: string;
+    color: string;
 }
