@@ -9,7 +9,7 @@ import {
   fontSize,
   paddingSize,
 } from "properties/styles/vars";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Image,
@@ -18,6 +18,7 @@ import {
   SafeAreaView,
   Pressable,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const photoWithStyle = StyleSheet.create({
   container: {
@@ -69,7 +70,7 @@ export const photoWithStyle = StyleSheet.create({
 
 const PhotoTakenScreen = ({ navigation, route }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-
+  const [data, setData] = useState<any[]>([]);
   const handleModal = () => setIsModalVisible(() => !isModalVisible);
 
   const photo: CameraCapturedPicture = route.params.photo;
@@ -78,8 +79,73 @@ const PhotoTakenScreen = ({ navigation, route }) => {
     navigation.navigate("CameraGame");
   };
 
-  const navigateToPhotoWithFinal = () => {
-    navigation.navigate("PhotoWithFinalScreen", {photo: photo});
+  const getCollectionData = async (backendIP: any, id: any) => {
+    try {
+        console.log(backendIP)
+        const response = await fetch(`${backendIP}/garque`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({"photo": photo.base64}),
+        });
+        const json = await response.json();
+        setData(json);
+    } catch (error) {
+        console.error(error);
+    }
+  }
+
+  useEffect(() => {
+      AsyncStorage.getItem("backendIP").then((backendIP) => {
+      AsyncStorage.getItem("userId").then((userId) => {
+          getCollectionData(backendIP, userId)
+      });
+      }); 
+  }, [])
+
+  const navigateToPhotoWithFinal = async () => {
+
+
+
+    // const isPersonModel = async () => {
+
+    //   const backendIP = AsyncStorage.getItem("backendIP").then(
+    //     (backendIP)
+
+    //   )
+
+    //   console.log(backendIP)
+  
+      // const response = await fetch(`${backendIP}/garque`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: photo.base64,
+      // });
+  
+    //   const answer = await response.toString()
+
+    //   console.log(response)
+  
+    //   let points = 25;
+    //   if (answer == "Garek") {
+    //     points = 100;
+    //   }
+
+    //   return points
+  
+    //   // modelBRRRbRRRRRRRRRR!
+    //   // setPoints(points);
+    // };
+
+    console.log(data);
+    let points = 33;
+
+    // const points = await isPersonModel();
+
+    navigation.navigate("PhotoWithFinalScreen", {photo: photo, points: points});
   };
 
   return (

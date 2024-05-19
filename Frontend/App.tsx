@@ -37,7 +37,7 @@ const Stack = createNativeStackNavigator();
 function App() {
   
   useEffect(() => {
-    AsyncStorage.setItem("backendIP", "http://172.20.10.6:8000");
+    AsyncStorage.setItem("backendIP", "http://192.168.48.69:8000");
   }, [])
 
   return (
