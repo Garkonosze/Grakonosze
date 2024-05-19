@@ -4,7 +4,7 @@ import { Svg, Rect } from 'react-native-svg';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
-import * as tf from '@tensorflow/tfjs';
+// import * as tf from '@tensorflow/tfjs';
 
 type XorPlaneViewNavigationProp = StackNavigationProp<RootStackParamList, 'XorPlaneView'>;
 
@@ -45,50 +45,50 @@ const XorPlaneView: React.FC<Props> = ({ navigation, route }) => {
     return data;
   };
 
-  const createModel = () => {
-    const model = tf.sequential();
-    model.add(tf.layers.dense({ units: neuronsPerLayer, inputShape: [2], activation: 'sigmoid' }));
+  // const createModel = () => {
+  //   const model = tf.sequential();
+  //   model.add(tf.layers.dense({ units: neuronsPerLayer, inputShape: [2], activation: 'sigmoid' }));
 
-    for (let i = 1; i < hiddenLayers; i++) {
-      model.add(tf.layers.dense({ units: neuronsPerLayer, activation: 'sigmoid' }));
-    }
+  //   for (let i = 1; i < hiddenLayers; i++) {
+  //     model.add(tf.layers.dense({ units: neuronsPerLayer, activation: 'sigmoid' }));
+  //   }
 
-    model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }));
-    const opt = tf.train.sgd(learningRate?learningRate:0.1);
-    console.log(opt)
-    model.compile({ optimizer: tf.train.sgd(learningRate), loss: 'binaryCrossentropy' });
-    console.log(model)
-    return model;
-  };
+  //   model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }));
+  //   const opt = tf.train.sgd(learningRate?learningRate:0.1);
+  //   console.log(opt)
+  //   model.compile({ optimizer: tf.train.sgd(learningRate), loss: 'binaryCrossentropy' });
+  //   console.log(model)
+  //   return model;
+  // };
 
-  const trainXORModel = async (model: tf.Sequential, data: { input: number[]; output: number }[]) => {
-    console.log('Training model...');
-    const inputs = data.map(d => d.input);
-    const labels = data.map(d => d.output);
+  // const trainXORModel = async (model: tf.Sequential, data: { input: number[]; output: number }[]) => {
+  //   console.log('Training model...');
+  //   const inputs = data.map(d => d.input);
+  //   const labels = data.map(d => d.output);
 
-    const xs = tf.tensor2d(inputs);
-    const ys = tf.tensor2d(labels, [labels.length, 1]);
+  //   const xs = tf.tensor2d(inputs);
+  //   const ys = tf.tensor2d(labels, [labels.length, 1]);
 
-    await model.fit(xs, ys, { epochs });
-    xs.dispose();
-    ys.dispose();
-    console.log('Training complete');
-  };
+  //   await model.fit(xs, ys, { epochs });
+  //   xs.dispose();
+  //   ys.dispose();
+  //   console.log('Training complete');
+  // };
 
-  const generateResults = async (model: tf.Sequential) => {
-    const grid: GridResult[] = [];
-    for (let i = 0; i <= 1.06; i += 0.08) {
-      for (let j = 0; j <= 1.06; j += 0.08) {
-        const input = tf.tensor2d([[i, j]]);
-        const prediction = model.predict(input) as tf.Tensor;
-        const value = (await prediction.data())[0] > 0.5 ? 1 : 0;
-        grid.push({ x: i, y: j, value });
-        input.dispose();
-        prediction.dispose();
-      }
-    }
-    setNetworkResults(grid);
-  };
+  // const generateResults = async (model: tf.Sequential) => {
+  //   const grid: GridResult[] = [];
+  //   for (let i = 0; i <= 1.06; i += 0.08) {
+  //     for (let j = 0; j <= 1.06; j += 0.08) {
+  //       const input = tf.tensor2d([[i, j]]);
+  //       const prediction = model.predict(input) as tf.Tensor;
+  //       const value = (await prediction.data())[0] > 0.5 ? 1 : 0;
+  //       grid.push({ x: i, y: j, value });
+  //       input.dispose();
+  //       prediction.dispose();
+  //     }
+  //   }
+  //   setNetworkResults(grid);
+  // };
 
   const generateResults2 = () => {
     const grid: GridResult[] = [];
