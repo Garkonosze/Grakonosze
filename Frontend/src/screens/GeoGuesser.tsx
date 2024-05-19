@@ -81,7 +81,7 @@ const GeoGuesser = ({ navigation }) => {
   const imageHeight =
     ((windowHeight - 2 * paddingSize.mediumBig - paddingSize.xBig) * 70) / 100;
   const imageWidth = (630 * imageHeight) / 1182;
-  const paddingLeft = (Dimensions.get("window").width - imageWidth)/2;
+  const paddingLeft = (Dimensions.get("window").width - imageWidth) / 2;
   const goodLocationWidth = imageWidth - (imageWidth * 20) / 100 + paddingLeft;
   const goodLocationHeight = imageHeight - (imageHeight * 50) / 100;
   const [locationHeight, setLocationHeight] = useState(-30);
@@ -137,13 +137,6 @@ const GeoGuesser = ({ navigation }) => {
           source={require("../../assets/lupa.png")}
         />
       </Pressable>
-      <Image
-        style={[
-          geoguesserStyle.locationGood,
-          { top: goodLocationHeight, left: goodLocationWidth },
-        ]}
-        source={require("../../assets/locaction_good.png")}
-      />
       <Image
         style={[
           geoguesserStyle.locationGood,
