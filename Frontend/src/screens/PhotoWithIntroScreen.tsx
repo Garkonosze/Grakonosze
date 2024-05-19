@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
 const PhotoWithIntroScreen = ({ navigation }) => {
   const navigateToCamera = () => {
-    // Camera!
+    navigation.navigate("CameraGame");
   };
 
   const navigateToPhotoLevelScreen = () => {

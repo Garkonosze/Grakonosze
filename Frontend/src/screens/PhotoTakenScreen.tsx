@@ -3,6 +3,7 @@ import SecondaryButton from "components/atoms/SecondaryButton";
 import { Modal } from "components/molecules/Modal";
 import Navbar from "components/molecules/Navbar";
 import primaryColors from "properties/styles/colors";
+import { CameraCapturedPicture } from 'expo-camera';
 import {
   borderRadiusSize,
   fontSize,
@@ -64,13 +65,15 @@ export const photoWithStyle = StyleSheet.create({
   },
 });
 
-const PhotoTakenScreen = ({ navigation }) => {
+const PhotoTakenScreen = ({ navigation, route }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   const handleModal = () => setIsModalVisible(() => !isModalVisible);
+
+  const photo: CameraCapturedPicture = route.params.photo;
   
   const navigateToCamera = () => {
-    // Camera!
+    navigation.navigate("CameraGame");
   };
 
   const isPersonModel = () => {
@@ -82,9 +85,13 @@ const PhotoTakenScreen = ({ navigation }) => {
       <View style={photoWithStyle.container}>
         <Navbar id="124623" />
 
-        <View style={photoWithStyle.photo}>
-          <Text>tu będzie twoje zdjecie z dziekanem</Text>
-        </View>
+        {/* <View style={photoWithStyle.photo}> */}
+          <Image
+            style={photoWithStyle.photo}
+            source={{uri: photo.uri}}
+          />
+          {/* <Text>tu będzie twoje zdjecie z dziekanem</Text> */}
+        {/* </View> */}
         <View style={photoWithStyle.buttonContainer}>
         <PrimaryButton title={"Potwierdź"} handleOnClick={isPersonModel} />
         <SecondaryButton title={"Powtórz zdjęcie"} handleOnClick={navigateToCamera} />
