@@ -1,9 +1,10 @@
 import {FlatList, SafeAreaView, StyleSheet, View} from "react-native";
 import {paddingSize} from "properties/styles/vars";
-import RankingItem from "./RankingItem";
+import RankingItem, { TaskItemProps } from "./RankingItem";
 import Navbar from "components/molecules/Navbar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {Title} from "components/atoms";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const data = {
     scoreboard: [
@@ -42,19 +43,43 @@ export const mainStyle = StyleSheet.create({
 })
 
 const RankingView: React.FC<{ navigation: any }> = ({navigation}) => {
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState<any[]>([]);
+
+    const getCollectionData = async (backendIP: any, id: any) => {
+        try {
+            console.log(backendIP)
+            const response = await fetch(`${backendIP}/scores/${id}`);
+            const json = await response.json();
+            setData(json.scoreboard);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        AsyncStorage.getItem("backendIP").then((backendIP) => {
+        AsyncStorage.getItem("userId").then((userId) => {
+            getCollectionData(backendIP, userId)
+        });
+        }); 
+    }, [])
+
     return (
         <View style={[{flex: 1}]}>
             <SafeAreaView style={mainStyle.container}>
                 <Navbar id={"124623"}/>
                 <View style={mainStyle.title}>
                     <Title title={"Ranking"}/>
-                    <FlatList
-                        data={data.scoreboard}
+                    {data && <FlatList
+                        data={data}
                         renderItem={({item}) => <RankingItem item={item}/>}
                         keyExtractor={item => item.place.toString()}
                         numColumns={1}
                         contentContainerStyle={mainStyle.container}
-                    />
+                    />}
                 </View>
             </SafeAreaView>
         </View>

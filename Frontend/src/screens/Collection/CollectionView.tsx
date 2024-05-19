@@ -1,9 +1,10 @@
-import {ActivityIndicator, FlatList, SafeAreaView, StyleSheet, View} from "react-native";
+import {ActivityIndicator, FlatList, SafeAreaView, StyleSheet, View, Text} from "react-native";
 import {paddingSize} from "properties/styles/vars";
 import Navbar from "components/molecules/Navbar";
 import React, {useEffect, useState} from "react";
 import CollectionItem from "./CollectionItem";
 import {Title} from "components/atoms";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {CollectionItemData} from "properties/model/CollectionItemData";
 
 export const mainStyle = StyleSheet.create({
@@ -28,12 +29,13 @@ export const mainStyle = StyleSheet.create({
 })
 
 const CollectionView: React.FC<{ navigation: any }> = ({navigation}) => {
-
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState<CollectionItemData[]>([]);
-    const getCollectionData = async () => {
+
+    const getCollectionData = async (backendIP: any, id: any) => {
         try {
-            const response = await fetch("http://192.168.21.87:8000/collection/420420");
+            console.log(backendIP)
+            const response = await fetch(`${backendIP}/collection/${id}`);
             const json = await response.json();
             setData(json.collection);
         } catch (error) {
@@ -44,7 +46,12 @@ const CollectionView: React.FC<{ navigation: any }> = ({navigation}) => {
     }
 
     useEffect(() => {
-        getCollectionData();
+        AsyncStorage.getItem("backendIP").then((data) => {
+        AsyncStorage.getItem("userId").then((d) => {
+        console.log(data)    
+            getCollectionData(data, d);
+        });
+        }); 
     }, [])
 
 

@@ -19,6 +19,8 @@ import CollectionView from "./src/screens/Collection/CollectionView";
 import RankingView from "./src/screens/Ranking/RankingView";
 import GeoGuesserFinal from "./src/screens/GeoGuesserFinal";
 import CameraGame from "./src/screens/CameraGame";
+import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 type RootStackParamList = {
@@ -33,6 +35,11 @@ type RootStackParamList = {
 const Stack = createNativeStackNavigator();
 
 function App() {
+  
+  useEffect(() => {
+    AsyncStorage.setItem("backendIP", "http://172.20.10.6:8000");
+  }, [])
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="StartScreen">

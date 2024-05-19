@@ -3,7 +3,7 @@ import {fontSize, paddingSize} from "properties/styles/vars";
 import React from "react";
 import primaryColors from "properties/styles/colors";
 
-interface TaskItemProps {
+export interface TaskItemProps {
     item: {
         name: string;
         hash: string;

@@ -44,7 +44,7 @@ export const mainStyle = StyleSheet.create({
   },
 });
 
-const CollectPrice = ({ navigation }) => {
+const CollectPrice = ({ navigation, route }) => {
   const navigateToMainScreen = () => {
     navigation.navigate("MainScreen");
   };
@@ -62,8 +62,8 @@ const CollectPrice = ({ navigation }) => {
           source={require("../../assets/marek.jpg")}
         />
         <Title title={"Brawo!"} />
-        <Text style={mainStyle.smallText}>{"Zdobywasz diamentowego"}</Text>
-        <Text style={mainStyle.coinName}>{"Garka"}</Text>
+        <Text style={mainStyle.smallText}>{`Zdobywasz ${route.params.data.color}`}</Text>
+        <Text style={mainStyle.coinName}>{route.params.data.name}</Text>
         <View style={mainStyle.buttonContainer}>
           <PrimaryButton
             title={"Odbierz bonus"}
