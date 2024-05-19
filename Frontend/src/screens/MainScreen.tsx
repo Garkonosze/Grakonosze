@@ -35,6 +35,10 @@ const MainScreen = ({ navigation }) => {
     navigation.navigate("CollectionView");
   };
 
+  const navigateToRankingView = () => {
+    navigation.navigate("RankingView");
+  };
+
   const [id, setId] = useState("");
 
   useEffect(() => {
@@ -56,6 +60,11 @@ const MainScreen = ({ navigation }) => {
             handleOnClick={navigateToQrScanScreen}
           ></PrimaryButton>
           <PrimaryButton
+              title={"Kolekcja"}
+              handleOnClick={navigateToCollectionView}
+          >
+          </PrimaryButton>
+          <PrimaryButton title={"Ranking"} handleOnClick={navigateToRankingView}></PrimaryButton>
             title={"Kolekcja"}
             handleOnClick={navigateToCollectionView}
           ></PrimaryButton>
