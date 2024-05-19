@@ -33,7 +33,7 @@ const CollectionView: React.FC<{ navigation: any }> = ({navigation}) => {
     const [data, setData] = useState<CollectionItemData[]>([]);
     const getCollectionData = async () => {
         try {
-            const response = await fetch("http://localhost:8000/collection/420420");
+            const response = await fetch("http://192.168.21.87:8000/collection/420420");
             const json = await response.json();
             setData(json.collection);
         } catch (error) {
