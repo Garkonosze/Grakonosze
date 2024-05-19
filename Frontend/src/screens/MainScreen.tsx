@@ -60,15 +60,13 @@ const MainScreen = ({ navigation }) => {
             handleOnClick={navigateToQrScanScreen}
           ></PrimaryButton>
           <PrimaryButton
-              title={"Kolekcja"}
-              handleOnClick={navigateToCollectionView}
-          >
-          </PrimaryButton>
-          <PrimaryButton title={"Ranking"} handleOnClick={navigateToRankingView}></PrimaryButton>
             title={"Kolekcja"}
             handleOnClick={navigateToCollectionView}
           ></PrimaryButton>
-          <PrimaryButton title={"Ranking"}></PrimaryButton>
+          <PrimaryButton
+            title={"Ranking"}
+            handleOnClick={navigateToRankingView}
+          ></PrimaryButton>
         </View>
       </SafeAreaView>
     </View>
