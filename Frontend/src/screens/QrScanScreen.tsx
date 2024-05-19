@@ -20,10 +20,6 @@ const QrScanScreen = ({ navigation }) => {
     navigation.navigate("NetworkView");
   };
 
-  const navigateToXorPlaneView = () => {
-    navigation.navigate("XorPlaneView");
-  };
-
   const navigateToGeoguesser = () => {
     navigation.navigate("GeoGuesserIntroScreen");
   };
@@ -47,10 +43,6 @@ const QrScanScreen = ({ navigation }) => {
         <PrimaryButton
           title={"Sieć neuronowa"}
           handleOnClick={navigateToNetworkView}
-        ></PrimaryButton>
-        <PrimaryButton
-          title={"Xor"}
-          handleOnClick={navigateToXorPlaneView}
         ></PrimaryButton>
         <PrimaryButton
           title={"Geoguesser"}
