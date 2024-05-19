@@ -25,10 +25,12 @@
     },
     "plugins": [
       [
-        "expo-barcode-scanner",
+        "expo-camera",
         {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access camera, pls."
-        }
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera, pls.",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone, pls.",
+          "recordAudioAndroid": true
+        },
       ]
     ]
   }

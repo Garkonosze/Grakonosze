@@ -28,6 +28,10 @@ const QrScanScreen = ({ navigation }) => {
     navigation.navigate("GeoGuesserIntroScreen");
   };
 
+  const navigateToCameraGame = () => {
+    navigation.navigate("CameraGame");
+  };
+
   const navigateToQRScanner = () => {
     navigation.navigate("QRScanner");
   };
@@ -51,6 +55,10 @@ const QrScanScreen = ({ navigation }) => {
         <PrimaryButton
           title={"QRScanner"}
           handleOnClick={navigateToQRScanner}
+        ></PrimaryButton>
+        <PrimaryButton
+          title={"CameraGame"}
+          handleOnClick={navigateToCameraGame}
         ></PrimaryButton>
       </View>
     </View>
