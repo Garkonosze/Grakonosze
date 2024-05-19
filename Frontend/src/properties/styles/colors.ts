@@ -1,6 +1,7 @@
 const primaryColors = {
   darkBlue: "#212C3F",
   lightBlue: "#095E9F",
+  middleBlue: "#4698E6",
   white: "#ffffff",
   lightGrey: "#BBBBBB",
   darkGrey: "#343434",
