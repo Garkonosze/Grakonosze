@@ -41,7 +41,6 @@ def get_medal_color(score: int):
         return "silver"
     return "bronze"
 
-
 app = FastAPI()
 
 
@@ -149,6 +148,16 @@ async def get_scoreboard(user_hash: str):
         user_score = sum(user_scores)
     return {"score": user_score}
 
+@app.get("/scoreboard/{user_hash}")
+async def get_scoreboard(user_hash: str):
+    scores = read_json("data/score.json").get("scores")
+    user_scores = [
+        score.get("score") for score in scores if score.get("user_hash") == user_hash
+    ]
+    user_score = 0
+    if user_scores:
+        user_score = sum(user_scores)
+    return {"score": user_score}
 
 @app.get("/scoreboard/top/{n}")
 async def get_scoreboard_top(n: int):
