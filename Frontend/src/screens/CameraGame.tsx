@@ -34,6 +34,7 @@ export default function CameraGame({ navigation }) {
   };
 
   const onPictureSaved = photo => {
+    console.log(photo.base64);
     navigation.navigate("PhotoTakenScreen", {photo: photo});
   };
 
