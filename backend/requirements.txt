@@ -3,3 +3,6 @@ uvicorn
 pydantic
 starlette
 torch
+torchvision
+torchaudio
+numpy
