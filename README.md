@@ -40,14 +40,12 @@ Nasza gra jest skierowana do uczniów szkół średnich, szczególnie tych, któ
 3. **Dostęp do mini gier**: Uczestnicy powinni móc wchodzić do mini gier za pomocą kodów QR, które będą umieszczone w różnych punktach kontrolnych.
 4. **System nagród i progresji**: Gra musi zawierać system nagród i progresji, który umożliwi realizację różnych typów nagród za ukończenie zadań.
 
-
 ### Wymagania niefunkcjonalne
 
 1. Instalacja aplikacji na urządzenia mobilne z Apple/Play store
 2. Udostępnienie dostępu do kamery na urządzenia mobilne
 3. Uczestnictwo w dniach otwartych AGH
 4. Możliwość skanowania kodów QR na urządzeniu mobilnym
-
 
 ### Stos technologiczny
 
@@ -102,7 +100,6 @@ Makiety UI zaimplementowane zostały w **Figmie: [link](https://www.figma.com/pr
 - Dodanie logowania i autoryzacji użytkowników
 - Dodanie wersji przeglądarkowej
 
-
 ## Raport z retro
 
 1. **Zbyt długi setup projektu i problemy z githubem** - nieuniknione było napotkanie problemów niezależnych od nas, jednak były to problemy z setupem i githubem. Mamy je za sobą i uważamy, że nie mogliśmy ich uniknąć. Mogliśmy zacząć setup projektu wczoraj podczas zajęć i dzisaj być wszyscy gotowi do pracy od godziny 9:00 co by zaoszczędziło nam trochę czasu. Mamy nauke na przyszłość, żeby planować i setupować projekt jednoczesnie, aby napotkać i rozwiązać wszystkie problemy "wcześniej"
@@ -112,14 +109,67 @@ Makiety UI zaimplementowane zostały w **Figmie: [link](https://www.figma.com/pr
 ## Zespół
 
 - [Aleksandra Poskróbek](https://github.com/Olciaaa)
+- [Karolina Kucia](https://github.com/kkkucia)
 - [Igor Urbanik](https://github.com/Radinyn)
 - [Kacper Kotkiewicz](https://github.com/kkotkiewicz)
-- [Karolina Kucia](https://github.com/kkkucia)
 - [Remigiusz Kozicki](https://github.com/remekozicki)
 - [Szymon Rusiecki](https://github.com/Rusiek)
 
-# Odpalenie projektu
+# Instrukcja pobrania i odpalenia projektu
 
-1. Przejdź do backend/README.md i wykonaj potrzebne inftrukcje do odpalenia backendu
-2. Przejdź do frontend/README.md i wykonaj potrzebne inftrukcje do odpalenia frontendu
-3. Brawo twoja aplikacja już działa ;)
+## Pobranie projektu
+
+Skolnuj projekt za pomocą komendy
+
+```
+git clone https://github.com/Garkonosze/Grakonosze.git
+```
+
+## Wymagania
+
+Zeby uruchomić Garkonosze będziesz potrzebował:
+
+1. Zainstalowaną aplikację [Expo GO](https://expo.dev/go) na urządzeniu moblinym w celu przetestowania projektu
+
+2. [Python 3.9](https://www.python.org/downloads/release/python-390/) lub wyższą wersje
+
+## Uruchomienie aplikacji
+
+1. Przejdź do katalogu **_Garkonosze/backend_** w sklonowanym projecie i wykonaj
+
+```
+pip install -r requirements.txt
+```
+
+2. Uruchom backend za pomcą
+
+```
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+```
+
+3. Teraz w nowym oknie terminala przejdź do katalogu **_Garkonosze/frontend_** w sklonowanym projecie
+
+4. Wykonaj
+
+```
+npm install
+
+```
+
+5. A następnie
+
+```
+npx expo start
+
+```
+
+**WAŻNE**: pamiętaj aby twoje urządzenie mobilne i komputer na którym zostało sklonowane repozytorium było podłączone do jednej sieci
+
+6. Skopiuj adres IP (bez portu), który się wyświetla pod kodem QR po wykonaniu punktu 5
+
+7. Wklej ten adres w pliku **_Grakonosze/Frontend/App.tsx_** w lini 20 zamiast
+
+8. Zeskanuj kod QR na urządzeniu z zainstalowaną aplikacją Expo GO za pomocą aparatu lub aplikacji Expo GO
+
+9. Barwo udało Ci się uruchomić aplikacje **Grakonosze**!
