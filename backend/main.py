@@ -129,11 +129,19 @@ async def add_score(score: ScoreBase):
         if score.get("task_id") == task_id and score.get("user_hash") == user_hash:
             score["score"] = max(score.get("score"), delta)
             write_json("data/score.json", {"scores": scores})
-            return {"color": get_medal_color(delta), "name": found_task.get("name")}
+            return {
+                "color": get_medal_color(delta),
+                "name": found_task.get("name"),
+                "photo": found_task.get("photo"),
+            }
     score = {"task_id": task_id, "user_hash": user_hash, "score": delta}
     scores.append(score)
     write_json("data/score.json", {"scores": scores})
-    return {"color": get_medal_color(delta), "name": found_task.get("name")}
+    return {
+        "color": get_medal_color(delta),
+        "name": found_task.get("name"),
+        "photo": found_task.get("photo"),
+    }
 
 
 @app.get("/scoreboard")

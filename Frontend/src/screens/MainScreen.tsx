@@ -36,6 +36,11 @@ const MainScreen = ({ navigation }) => {
     navigation.navigate("CollectionView");
   };
 
+  const navigateToRankingView = () => {
+    navigation.navigate("RankingView");
+  };
+
+
   return (
     <View style={[{ flex: 1 }]}>
       <SafeAreaView style={mainStyle.container}>
@@ -55,7 +60,7 @@ const MainScreen = ({ navigation }) => {
               handleOnClick={navigateToCollectionView}
           >
           </PrimaryButton>
-          <PrimaryButton title={"Ranking"}></PrimaryButton>
+          <PrimaryButton title={"Ranking"} handleOnClick={navigateToRankingView}></PrimaryButton>
         </View>
       </SafeAreaView>
     </View>

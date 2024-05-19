@@ -15,6 +15,7 @@ import GeoGuesserIntroScreen from "./src/screens/GeoGuesserIntroScreen";
 import GeoGuesser from "./src/screens/GeoGuesser";
 import CollectPrice from "./src/screens/CollectPrice";
 import CollectionView from "./src/screens/Collection/CollectionView";
+import RankingView from "./src/screens/Ranking/RankingView";
 
 
 type RootStackParamList = {
@@ -49,6 +50,7 @@ function App() {
         <Stack.Screen name="QRScanner" component={QRScanner} />
         <Stack.Screen name="CollectPrice" component={CollectPrice} />
         <Stack.Screen name="CollectionView" component={CollectionView}/>
+        <Stack.Screen name="RankingView" component={RankingView}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
