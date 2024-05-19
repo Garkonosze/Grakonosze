@@ -90,39 +90,20 @@ const XorPlaneView: React.FC<Props> = ({ navigation, route }) => {
     setNetworkResults(grid);
   };
 
-  const generateResults2 = () => {
-    const grid: GridResult[] = [];
-    const swap_tiles = Math.floor((4 - hiddenLayers) * (7 - neuronsPerLayer)) + Math.floor(Math.pow(110 - epochs, 0.8));
-    for (let i = 0; i <= 1.1; i += 0.08) {
-      for (let j = 0; j <= 1.1; j += 0.08) {
-        const value = (i > 0.5) !== (j > 0.5) ? 1 : 0;
-        grid.push({ x: i, y: j, value });
-      }
-    }
-    for (let i = 0; i < swap_tiles; i++) {
-      const index = Math.floor(Math.random() * grid.length);
-      grid[index].value = grid[index].value === 1 ? 0 : 1;
-    }
-    setNetworkResults(grid);
-  };
-
   useEffect(() => {
-    console.log('Start');
     generateXORResults();
-    // const data = generateData();
-    // console.log(data);
-    // const model = createModel();
-    // console.log(model);
-    // trainXORModel(model, data).then(() => generateResults(model));
-    generateResults2();
-    console.log('End');
+    const data = generateData();
+    console.log(data);
+    const model = createModel();
+    console.log(model);
+    trainXORModel(model, data).then(() => generateResults(model));
   }, []);
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.title}>Neural Network XOR Result</Text>
-        <Text>Learning Rate: {learningRate.toFixed(4)}</Text>
+        <Text>Learning Rate: {learningRate}</Text>
         <Text>Epochs: {epochs}</Text>
         <Text>Hidden Layers: {hiddenLayers}</Text>
         <Text>Neurons per Layer: {neuronsPerLayer}</Text>
