@@ -1,8 +1,29 @@
 {
     "scores": [
-        {"user_hash": "420420", "task_id": 1, "score": 30},
-        {"user_hash": "420420", "task_id": 3, "score": 50},
-        {"user_hash": "420420", "task_id": 4, "score": 80},
-        {"user_hash": "420420", "task_id": 5, "score": 90}
+        {
+            "user_hash": "420420",
+            "task_id": 1,
+            "score": 30
+        },
+        {
+            "user_hash": "420420",
+            "task_id": 3,
+            "score": 50
+        },
+        {
+            "user_hash": "420420",
+            "task_id": 4,
+            "score": 80
+        },
+        {
+            "user_hash": "420420",
+            "task_id": 5,
+            "score": 90
+        },
+        {
+            "task_id": 1,
+            "user_hash": "123456",
+            "score": 10
+        }
     ]
 }
