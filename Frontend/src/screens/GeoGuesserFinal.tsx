@@ -79,7 +79,7 @@ const GeoGuesserFinal = ({ navigation, route }) => {
   const windowWidth = Dimensions.get("window").width;
   const imageHeight = (windowHeight * 30) / 100;
   const imageWidth = (630 * imageHeight) / 1182;
-  const paddingLeft = (windowWidth - imageWidth) / 2;
+  const paddingLeft = (windowWidth - imageWidth) / 2 - 100;
   const goodLocationWidth =
     (route.params.goodLocationWidth * 3) / 7 + paddingLeft;
   const goodLocationHeight = (route.params.goodLocationHeight * 3) / 7;

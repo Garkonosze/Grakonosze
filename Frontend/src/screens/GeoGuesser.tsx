@@ -54,6 +54,7 @@ export const geoguesserStyle = StyleSheet.create({
   },
   imageBig: {
     width: "100%",
+    maxWidth: 300,
     alignSelf: "center",
   },
   mapImage: {
@@ -80,7 +81,8 @@ const GeoGuesser = ({ navigation }) => {
   const imageHeight =
     ((windowHeight - 2 * paddingSize.mediumBig - paddingSize.xBig) * 70) / 100;
   const imageWidth = (630 * imageHeight) / 1182;
-  const goodLocationWidth = imageWidth - (imageWidth * 20) / 100;
+  const paddingLeft = (Dimensions.get("window").width - imageWidth)/2;
+  const goodLocationWidth = imageWidth - (imageWidth * 20) / 100 + paddingLeft;
   const goodLocationHeight = imageHeight - (imageHeight * 50) / 100;
   const [locationHeight, setLocationHeight] = useState(-30);
   const [locationWidth, setLocationWidth] = useState(-30);
