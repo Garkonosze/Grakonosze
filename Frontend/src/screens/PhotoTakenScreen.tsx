@@ -32,20 +32,19 @@ export const photoWithStyle = StyleSheet.create({
     color: primaryColors.darkBlue,
     fontSize: fontSize.buttonMobileFontSize,
     textAlign: "center",
+    marginTop: 28,
   },
   image: {
-    height: 94,
-    width: 82,
+    height: 115,
+    width: 100,
     alignSelf: "center",
     resizeMode: "contain",
     borderRadius: 1.5,
-    },
+  },
   imageContainer: {
     position: "absolute",
-    bottom: 330,
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
+    left: paddingSize.big,
+    bottom: 250,
     borderColor: primaryColors.goldYellow,
     borderWidth: 2.5,
     borderRadius: borderRadiusSize.small,
@@ -55,8 +54,11 @@ export const photoWithStyle = StyleSheet.create({
     paddingVertical: paddingSize.small,
     gap: paddingSize.mediumBig,
   },
-  photo: {
-    height: "60%",
+    photoTaken: {
+    width: "70%",
+    height: "84%",
+    alignSelf: "center",
+    resizeMode: "contain",
   },
   imageBig: {
     width: "100%",
@@ -76,25 +78,24 @@ const PhotoTakenScreen = ({ navigation, route }) => {
     navigation.navigate("CameraGame");
   };
 
-  const isPersonModel = () => {
-    // modelBRRRRRRRRRRRRR!
+  const navigateToPhotoWithFinal = () => {
+    navigation.navigate("PhotoWithFinalScreen", {photo: photo});
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={photoWithStyle.container}>
         <Navbar id="124623" />
-
-        {/* <View style={photoWithStyle.photo}> */}
+        <View  style={photoWithStyle.container}>
           <Image
-            style={photoWithStyle.photo}
+            style={photoWithStyle.photoTaken}
             source={{uri: photo.uri}}
           />
-          {/* <Text>tu będzie twoje zdjecie z dziekanem</Text> */}
-        {/* </View> */}
+          <Text style={photoWithStyle.text}>Jeżeli jesteś zadowolony potwierdź swoje zdjęcie</Text>
+        </View>
         <View style={photoWithStyle.buttonContainer}>
-        <PrimaryButton title={"Potwierdź"} handleOnClick={isPersonModel} />
-        <SecondaryButton title={"Powtórz zdjęcie"} handleOnClick={navigateToCamera} />
+        <PrimaryButton title={"Potwierdź"} handleOnClick={navigateToPhotoWithFinal} inactive={isModalVisible} />
+        <SecondaryButton title={"Powtórz zdjęcie"} handleOnClick={navigateToCamera} inactive={isModalVisible}/>
         </View>
       </View>
       <Pressable onPress={handleModal} style={photoWithStyle.imageContainer}>

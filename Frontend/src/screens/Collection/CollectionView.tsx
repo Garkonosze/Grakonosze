@@ -1,29 +1,12 @@
-import {FlatList, SafeAreaView, StyleSheet, View} from "react-native";
+import {ActivityIndicator, FlatList, SafeAreaView, StyleSheet, View, Text} from "react-native";
 import {paddingSize} from "properties/styles/vars";
 import Navbar from "components/molecules/Navbar";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import CollectionItem from "./CollectionItem";
 import {Title} from "components/atoms";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {CollectionItemData} from "properties/model/CollectionItemData";
 
-const data = {
-    tasks: [
-        {task_id: 1, name: "Alan Turing", photo: "../../../assets/marek.jpg", description: "Lorem ipsum blablabla"},
-        {task_id: 2, name: "Garek", photo: "../../../assets/marek.jpg", description: "Lorem ipsum blablabla"},
-        {
-            task_id: 3,
-            name: "Prof. Krzysztof Zielinski",
-            photo: "../../../assets/marek.jpg",
-            description: "Lorem ipsum blablabla"
-        },
-        {
-            task_id: 4,
-            name: "Claude E. Shannon",
-            photo: "../../../assets/marek.jpg",
-            description: "Lorem ipsum blablabla"
-        },
-        {task_id: 5, name: "Michał Idzik", photo: "../../assets/idzik.png", description: "Lorem ipsum blablabla"}
-    ]
-};
 export const mainStyle = StyleSheet.create({
     container: {
         paddingHorizontal: paddingSize.medium,
@@ -46,21 +29,51 @@ export const mainStyle = StyleSheet.create({
 })
 
 const CollectionView: React.FC<{ navigation: any }> = ({navigation}) => {
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState<CollectionItemData[]>([]);
+
+    const getCollectionData = async (backendIP: any, id: any) => {
+        try {
+            console.log(backendIP)
+            const response = await fetch(`${backendIP}/collection/${id}`);
+            const json = await response.json();
+            setData(json.collection);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        AsyncStorage.getItem("backendIP").then((data) => {
+        AsyncStorage.getItem("userId").then((d) => {
+        console.log(data)    
+            getCollectionData(data, d);
+        });
+        }); 
+    }, [])
+
+
     return (
         <View style={[{flex: 1}]}>
-            <SafeAreaView style={mainStyle.container}>
-                <Navbar id={"124623"}/>
-                <View style={mainStyle.title}>
-                    <Title title={"Kolekcja"}/>
-                    <FlatList
-                        data={data.tasks}
-                        renderItem={({item}) => <CollectionItem item={item}/>}
-                        keyExtractor={item => item.task_id.toString()}
-                        numColumns={3}
-                        contentContainerStyle={mainStyle.container}
-                    />
-                </View>
-            </SafeAreaView>
+            {isLoading ? (
+                <ActivityIndicator/>
+            ) : (
+                <SafeAreaView style={mainStyle.container}>
+                    <Navbar id={"124623"}/>
+                    <View style={mainStyle.title}>
+                        <Title title={"Kolekcja"}/>
+                        <FlatList
+                            data={data}
+                            renderItem={({item}) => <CollectionItem item={item}/>}
+                            keyExtractor={item => item.task_id.toString()}
+                            numColumns={3}
+                            contentContainerStyle={mainStyle.container}
+                        />
+                    </View>
+                </SafeAreaView>
+            )}
         </View>
     );
 }
