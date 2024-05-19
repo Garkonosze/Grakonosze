@@ -24,6 +24,26 @@
             "task_id": 1,
             "user_hash": "123456",
             "score": 10
+        },
+        {
+            "task_id": 1,
+            "user_hash": "197188",
+            "score": 50
+        },
+        {
+            "task_id": 2,
+            "user_hash": "420420",
+            "score": 0
+        },
+        {
+            "task_id": 2,
+            "user_hash": "634188",
+            "score": 0
+        },
+        {
+            "task_id": 1,
+            "user_hash": "634188",
+            "score": 0
         }
     ]
 }
