@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
-import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
+import { CameraView, BarcodeScanningResult, useCameraPermissions } from 'expo-camera';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App';
+import { CommonActions } from '@react-navigation/native';
 
 type NetworkViewNavigationProp = StackNavigationProp<RootStackParamList, 'NetworkView'>;
 
@@ -17,7 +18,7 @@ const QR_MAP = [
 ];
 
 
-function handleBarCodeScanned(navigation: NetworkViewNavigationProp, setScanned: Function, result: BarCodeScannerResult) {
+function handleBarCodeScanned(navigation: NetworkViewNavigationProp, setScanned: Function, result: BarcodeScanningResult) {
     setScanned(true);
 
     let number_string = result.data[result.data.length-1];
@@ -28,36 +29,44 @@ function handleBarCodeScanned(navigation: NetworkViewNavigationProp, setScanned:
 
     let number = Number(result.data[result.data.length-1]);
     alert(`${result.data.slice(0, result.data.length-1)}`);
-    navigation.navigate(QR_MAP[number]);
+
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: QR_MAP[number],
+        params: {},
+      })
+    );
 }
 
 
 const QRScanner = ({navigation}) => {
-  const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
+  const [permission, requestPermission] = useCameraPermissions();
 
-  useEffect(() => {
-    const getBarCodeScannerPermissions = async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
-    };
-
-    getBarCodeScannerPermissions();
-  }, []);
-
-  const handleBarCodeScannedStateful = (result: BarCodeScannerResult) => handleBarCodeScanned(navigation, setScanned, result);
-
-  if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+  if (!permission) {
+    // Camera permissions are still loading.
+    return <View />;
   }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+
+  if (!permission.granted) {
+    // Camera permissions are not granted yet.
+    return (
+      <View style={styles.container}>
+        <Text style={{ textAlign: 'center' }}>Zezwól na użycie kamery</Text>
+        <Button onPress={requestPermission} title="zezwól na użycie kamery" />
+      </View>
+    );
   }
+
+  const handleBarCodeScannedStateful = (result: BarcodeScanningResult) => handleBarCodeScanned(navigation, setScanned, result);
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScannedStateful}
+      <CameraView
+        onBarcodeScanned={scanned ? undefined : handleBarCodeScannedStateful}
+        barcodeScannerSettings={{
+          barcodeTypes: ['aztec', 'ean13', 'ean8', 'qr', 'pdf417', 'upc_e', 'datamatrix', 'code39', 'code93', 'itf14', 'codabar', 'code128', 'upc_a']
+        }}
         style={StyleSheet.absoluteFillObject}
       />
       {scanned && <Button title={'Naciśnij by zeskanować na nowo'} onPress={() => setScanned(false)} />}

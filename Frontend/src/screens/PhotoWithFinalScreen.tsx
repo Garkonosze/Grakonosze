@@ -1,19 +1,11 @@
 import { PrimaryButton, Title } from "components/atoms";
 import Navbar from "components/molecules/Navbar";
 import primaryColors from "properties/styles/colors";
-import { CameraCapturedPicture } from 'expo-camera';
-import {
-  fontSize,
-  paddingSize,
-} from "properties/styles/vars";
+import { CameraCapturedPicture } from "expo-camera";
+import { fontSize, paddingSize } from "properties/styles/vars";
 import React from "react";
-import {
-  StyleSheet,
-  Image,
-  Text,
-  View,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, Image, Text, View, SafeAreaView } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const photoWithStyle = StyleSheet.create({
   container: {
@@ -37,13 +29,13 @@ export const photoWithStyle = StyleSheet.create({
     borderRadius: 1.5,
   },
   imageContainer: {
-    top: paddingSize.small
+    top: paddingSize.small,
   },
   buttonContainer: {
     marginTop: -50,
     paddingHorizontal: paddingSize.big,
   },
-    photoTaken: {
+  photoTaken: {
     width: "70%",
     height: "84%",
     alignSelf: "center",
@@ -55,14 +47,37 @@ const PhotoWithFinalScreen = ({ navigation, route }) => {
   const [points, setPoints] = React.useState(0);
 
   const photo: CameraCapturedPicture = route.params.photo;
-  
+
+  const getCollectionData = async (backendIP: any, id: any) => {
+    try {
+      console.log(backendIP);
+      const response = await fetch(`${backendIP}/scores`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_hash: id, score: points, task_id: 2 }),
+      });
+      const json = await response.json();
+      return json;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const navigateToPrice = () => {
-    navigation.navigate("CollectPrice");
+    AsyncStorage.getItem("backendIP").then((backendIP) => {
+      AsyncStorage.getItem("userId").then((userId) => {
+        getCollectionData(backendIP, userId).then((score) =>
+          navigation.navigate("CollectPrice", { data: score })
+        );
+      });
+    });
   };
 
   const isPersonModel = () => {
     // modelBRRRbRRRRRRRRRR!
-    setPoints(100)
+    setPoints(100);
   };
 
   return (
@@ -72,18 +87,15 @@ const PhotoWithFinalScreen = ({ navigation, route }) => {
         <View style={photoWithStyle.imageContainer}>
           <Image
             style={photoWithStyle.photoTaken}
-            source={{uri: photo.uri}}
+            source={{ uri: photo.uri }}
           />
-          
+
           <Text style={photoWithStyle.text}>Zdobywasz</Text>
           <Title title={points + " pkt"} />
           <Text style={photoWithStyle.text}>na 100 mozliwych</Text>
-          </View>
+        </View>
         <View style={photoWithStyle.buttonContainer}>
-        <PrimaryButton
-          handleOnClick={navigateToPrice}
-          title={"Kontynuuj"}
-        />
+          <PrimaryButton handleOnClick={navigateToPrice} title={"Kontynuuj"} />
         </View>
       </View>
     </SafeAreaView>
