@@ -1,9 +1,9 @@
-import {PrimaryButton, Title} from "components/atoms";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { PrimaryButton, Title } from "components/atoms";
 import Navbar from "components/molecules/Navbar";
-import {paddingSize} from "properties/styles/vars";
-import React from "react";
-import {Image, SafeAreaView, StyleSheet, View} from "react-native";
-
+import { paddingSize } from "properties/styles/vars";
+import React, { useEffect, useState } from "react";
+import { Image, SafeAreaView, StyleSheet, View } from "react-native";
 
 export const mainStyle = StyleSheet.create({
   container: {
@@ -27,7 +27,6 @@ export const mainStyle = StyleSheet.create({
 });
 
 const MainScreen = ({ navigation }) => {
-  
   const navigateToQrScanScreen = () => {
     navigation.navigate("QrScanScreen");
   };
@@ -40,11 +39,16 @@ const MainScreen = ({ navigation }) => {
     navigation.navigate("RankingView");
   };
 
+  const [id, setId] = useState("");
+
+  useEffect(() => {
+    AsyncStorage.getItem("userId").then((data) => setId(data ? data : "no id"));
+  }, []);
 
   return (
     <View style={[{ flex: 1 }]}>
       <SafeAreaView style={mainStyle.container}>
-        <Navbar id={"124623"} />
+        <Navbar id={id} />
         <Image
           style={mainStyle.logo}
           source={require("../../assets/logo_podstawowe.png")}
@@ -61,6 +65,10 @@ const MainScreen = ({ navigation }) => {
           >
           </PrimaryButton>
           <PrimaryButton title={"Ranking"} handleOnClick={navigateToRankingView}></PrimaryButton>
+            title={"Kolekcja"}
+            handleOnClick={navigateToCollectionView}
+          ></PrimaryButton>
+          <PrimaryButton title={"Ranking"}></PrimaryButton>
         </View>
       </SafeAreaView>
     </View>

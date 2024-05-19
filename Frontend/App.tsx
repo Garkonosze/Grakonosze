@@ -1,8 +1,8 @@
 import * as React from "react";
 import NetworkView from "./src/screens/NetworkView";
 import XorPlaneView from "./src/screens/XorPlaneView";
-import {NavigationContainer} from "@react-navigation/native";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainScreen from "./src/screens/MainScreen";
 import StartScreen from "./src/screens/StartScreen";
 import PhotoLevelScreen from "./src/screens/PhotoLevelScreen";
@@ -16,6 +16,8 @@ import GeoGuesser from "./src/screens/GeoGuesser";
 import CollectPrice from "./src/screens/CollectPrice";
 import CollectionView from "./src/screens/Collection/CollectionView";
 import RankingView from "./src/screens/Ranking/RankingView";
+import GeoGuesserFinal from "./src/screens/GeoGuesserFinal";
+import CameraGame from "./src/screens/CameraGame";
 
 
 type RootStackParamList = {
@@ -44,6 +46,7 @@ function App() {
           component={GeoGuesserIntroScreen}
         />
         <Stack.Screen name="GeoGuesser" component={GeoGuesser} />
+        <Stack.Screen name="GeoGuesserFinal" component={GeoGuesserFinal} />
         <Stack.Screen name="PhotoLevelScreen" component={PhotoLevelScreen} />
         <Stack.Screen name="PhotoWithIntroScreen" component={PhotoWithIntroScreen} />
         <Stack.Screen name="PhotoTakenScreen" component={PhotoTakenScreen} />
@@ -51,6 +54,7 @@ function App() {
         <Stack.Screen name="CollectPrice" component={CollectPrice} />
         <Stack.Screen name="CollectionView" component={CollectionView}/>
         <Stack.Screen name="RankingView" component={RankingView}/>
+        <Stack.Screen name="CameraGame" component={CameraGame}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
