@@ -32,6 +32,10 @@ const QrScanScreen = ({ navigation }) => {
     navigation.navigate("QRScanner");
   };
 
+  const navigateToPhotoWithIntroScreen = () => {
+    navigation.navigate("PhotoWithIntroScreen");
+  };
+
   return (
     <View style={[{ flex: 1 }, mainStyle.container]}>
       <Title title="Grakonosze" />
@@ -47,6 +51,10 @@ const QrScanScreen = ({ navigation }) => {
         <PrimaryButton
           title={"Geoguesser"}
           handleOnClick={navigateToGeoguesser}
+        ></PrimaryButton>
+        <PrimaryButton
+          title={"Photo With"}
+          handleOnClick={navigateToPhotoWithIntroScreen}
         ></PrimaryButton>
         <PrimaryButton
           title={"QRScanner"}

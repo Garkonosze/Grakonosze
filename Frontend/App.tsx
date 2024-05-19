@@ -5,6 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainScreen from "./src/screens/MainScreen";
 import StartScreen from "./src/screens/StartScreen";
+import PhotoLevelScreen from "./src/screens/PhotoLevelScreen";
+import PhotoWithIntroScreen from "./src/screens/PhotoWithIntroScreen";
+import PhotoTakenScreen from "./src/screens/PhotoTakenScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import QRScanner from "./src/screens/QRScanner";
 import QrScanScreen from "./src/screens/QrScanScreen";
@@ -41,6 +44,9 @@ function App() {
         />
         <Stack.Screen name="GeoGuesser" component={GeoGuesser} />
         <Stack.Screen name="GeoGuesserFinal" component={GeoGuesserFinal} />
+        <Stack.Screen name="PhotoLevelScreen" component={PhotoLevelScreen} />
+        <Stack.Screen name="PhotoWithIntroScreen" component={PhotoWithIntroScreen} />
+        <Stack.Screen name="PhotoTakenScreen" component={PhotoTakenScreen} />
         <Stack.Screen name="QRScanner" component={QRScanner} />
         <Stack.Screen name="CollectPrice" component={CollectPrice} />
         <Stack.Screen name="CollectionView" component={CollectionView} />

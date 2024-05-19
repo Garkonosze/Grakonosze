@@ -1,16 +1,16 @@
 {
     "users": [
-        {"name": "Remek", "hash": "420420"},
-        {"name": "Ola", "hash": "123456"},
-        {"name": "Kacper", "hash": "123457"},
-        {"name": "Igor", "hash": "123458"},
-        {"name": "Karolina", "hash": "123459"},
-        {"name": "Szymon", "hash": "123460"},
-        {"name": "Ktoś", "hash": "123461"},
-        {"name": "Jeszcze ktoś", "hash": "123462"},
-        {"name": "Ziomek", "hash": "123463"},
-        {"name": "Ziomuś", "hash": "123464"},
-        {"name": "Wow", "hash": "123465"},
-        {"name": "Nie wiem", "hash": "123466"}
+        {"name": "Amaduesz","hash": "310056"},
+        {"name": "Remek","hash": "420420"},
+        {"name": "Ola","hash": "123456"},
+        {"name": "Kacper","hash": "123457"},
+        {"name": "Igor","hash": "123458"},
+        {"name": "Karolina","hash": "123459"},
+        {"name": "Szymon","hash": "123460"},
+        {"name": "Ktoś","hash": "123461"},
+        {"name": "Jeszcze ktoś","hash": "123462"},
+        {"name": "Ziomek","hash": "123463"},
+        {"name": "Ziomuś","hash": "123464"},
+        {"name": "WOW","hash": "123465"}
     ]
 }

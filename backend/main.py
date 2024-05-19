@@ -1,8 +1,16 @@
 from fastapi import FastAPI, HTTPException
+from starlette.middleware.cors import CORSMiddleware
 from collections import defaultdict
 from typing import Dict
+from pydantic import BaseModel
 import json
 import random
+
+
+class ScoreBase(BaseModel):
+    user_hash: str
+    score: int
+    task_id: int
 
 
 def read_json(filename):
@@ -20,7 +28,7 @@ def read_user_score(user_hash: str, scores: Dict):
         score.get("score") for score in scores if score.get("user_hash") == user_hash
     ]
     user_score = 0
-    if user_score:
+    if user_scores:
         user_score = sum(user_scores)
     return user_score
 
@@ -37,13 +45,21 @@ def get_medal_color(score: int):
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/")
 async def root():
     return {"message": "Hello Garek!"}
 
 
-@app.post("/login")
+@app.post("/login/{user_hash}")
 async def login_user(user_hash: str):
     users = read_json("data/user.json").get("users")
     for user in users:
@@ -52,7 +68,7 @@ async def login_user(user_hash: str):
     raise HTTPException(status_code=404, detail="User not found")
 
 
-@app.post("/register")
+@app.post("/register/{user_name}")
 async def register_user(user_name: str):
     users = read_json("data/user.json").get("users")
     new_user = {"name": user_name}
@@ -66,7 +82,7 @@ async def register_user(user_name: str):
             new_user["hash"] = id
             break
     users.append(new_user)
-    write_json("data/user.json", {"users": new_user})
+    write_json("data/user.json", {"users": users})
     return {"user": new_user}
 
 
@@ -99,7 +115,10 @@ def get_user_collection(user_hash: str):
 
 
 @app.post("/scores")
-async def add_score(user_hash: str, task_id: int, delta: int):
+async def add_score(score: ScoreBase):
+    user_hash = score.user_hash
+    task_id = score.task_id
+    delta = score.score
     scores = read_json("data/score.json").get("scores")
     tasks = read_json("data/task.json").get("tasks")
     found_task = None
@@ -111,7 +130,7 @@ async def add_score(user_hash: str, task_id: int, delta: int):
             score["score"] = max(score.get("score"), delta)
             write_json("data/score.json", {"scores": scores})
             return {"color": get_medal_color(delta), "name": found_task.get("name")}
-    score = {"task_id": task_id, "user_hash": user_hash, score: delta}
+    score = {"task_id": task_id, "user_hash": user_hash, "score": delta}
     scores.append(score)
     write_json("data/score.json", {"scores": scores})
     return {"color": get_medal_color(delta), "name": found_task.get("name")}
@@ -140,6 +159,18 @@ async def get_scoreboard(user_hash: str):
     return {"score": user_score}
 
 
+@app.get("/scoreboard/{user_hash}")
+async def get_scoreboard(user_hash: str):
+    scores = read_json("data/score.json").get("scores")
+    user_scores = [
+        score.get("score") for score in scores if score.get("user_hash") == user_hash
+    ]
+    user_score = 0
+    if user_scores:
+        user_score = sum(user_scores)
+    return {"score": user_score}
+
+
 @app.get("/scoreboard/top/{n}")
 async def get_scoreboard_top(n: int):
     users = read_json("data/user.json").get("users")
@@ -151,17 +182,15 @@ async def get_scoreboard_top(n: int):
     return {"scoreboard": sorted_users[:n]}
 
 
-app.get("/scoreboard/top/{user_hash}")
-
-
+@app.get("/scores/{user_hash}")
 async def get_scoreboard_info(user_hash: str):
     users = read_json("data/user.json").get("users")
     scores = read_json("data/score.json").get("scores")
     users = [
         {**user, "score": read_user_score(user.get("hash"), scores)} for user in users
     ]
-    sorted_users = sorted(users, key=lambda x: x["score"])
-    sorted_users = [{**user, "place": i} for i, user in enumerate(sorted_users)]
+    sorted_users = sorted(users, key=lambda x: x["score"], reverse=True)
+    sorted_users = [{**user, "place": i + 1} for i, user in enumerate(sorted_users)]
     user_index = [i for i, x in enumerate(sorted_users) if x.get("hash") == user_hash][
         0
     ]
