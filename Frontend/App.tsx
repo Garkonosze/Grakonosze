@@ -1,8 +1,8 @@
 import * as React from "react";
 import NetworkView from "./src/screens/NetworkView";
 import XorPlaneView from "./src/screens/XorPlaneView";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {NavigationContainer} from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import MainScreen from "./src/screens/MainScreen";
 import StartScreen from "./src/screens/StartScreen";
 import PhotoLevelScreen from "./src/screens/PhotoLevelScreen";
@@ -33,7 +33,7 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="CollectionView">
+      <Stack.Navigator initialRouteName="StartScreen">
         <Stack.Screen name="StartScreen" component={StartScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="MainScreen" component={MainScreen} />
