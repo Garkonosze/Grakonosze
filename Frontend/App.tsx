@@ -28,7 +28,7 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="StartScreen">
+      <Stack.Navigator initialRouteName="CollectionView">
         <Stack.Screen name="StartScreen" component={StartScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="MainScreen" component={MainScreen} />

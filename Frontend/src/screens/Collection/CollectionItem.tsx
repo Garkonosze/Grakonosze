@@ -39,6 +39,7 @@ export const mainStyle = StyleSheet.create({
 
 const CollectionItem: React.FC<TaskItemProps> = ({item}) => (
     <View style={mainStyle.itemContainer}>
+        <Text>{item.photo}</Text>
         <Image style={mainStyle.image} source={require("../../../assets/marek.jpg")}/>
         <Text style={mainStyle.text}>{item.name}</Text>
     </View>
